@@ -49,7 +49,7 @@
 /* Shop - Dropdown */
 
 .header .shop-container .shop-dropdown,
-.shop-dropdown-container-second {
+.container-subcategory {
     display: none;
     position: absolute;
     padding: 15px 10px;
@@ -58,13 +58,13 @@
     top: 100%;
     left: 0;
 }
-.shop-dropdown-container-second {
+.container-subcategory {
     left: 100%;
     top: 0%;
 }
 
 .header .shop-container .shop-dropdown.active,
-.shop-dropdown-container-second.active {
+.container-subcategory.active {
     display: grid;
     grid-template-columns: auto;
     gap: 10px;
@@ -72,7 +72,7 @@
     background-color: cornflowerblue;
 }
 
-.shop-dropdown-container-first {
+.container-category {
     position: relative;
 }
 

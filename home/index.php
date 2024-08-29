@@ -5,15 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="../global/styles.css">
     <link rel="stylesheet" href="../global/header/styles.css">
     <link rel="stylesheet" href="../global/footer/styles.css">
+
+    <link rel="stylesheet" href="./component/deals/styles.css">
+    <link rel="stylesheet" href="./component/banner-1/styles.css">
+    <link rel="stylesheet" href="./component/content-1/styles.css">
 </head>
 
-<body
-    style="position: relative; margin: 0 100px">
+<body class="home">
+
     <?php include('../global/header/index.php'); ?>
-    <h1>Main Bodasddasy</h1>
+    <!-- <h1>DEALS PLACEHOLDER</h1> -->
+
+    <?php include('./component/deals/index.php'); ?>
+    <?php include('./component/banner-1/index.php'); ?>
+    <?php include('./component/content-1/index.php'); ?>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend elit tellus, at mollis quam egestas ut. Phasellus at felis non nunc sollicitudin tempor vel id eros. Maecenas arcu neque, molestie ut rutrum eu, viverra ac justo. Maecenas lacinia id risus ut porta. Pellentesque non posuere diam. Sed tristique non diam id luctus. Nam laoreet turpis quis risus laoreet, in bibendum ligula faucibus. Nulla quis odio dapibus, venenatis magna vitae, interdum urna. Aliquam eget est ligula. Nulla facilisi. Morbi ullamcorper viverra interdum. Quisque suscipit purus pharetra arcu molestie tincidunt. Nunc felis augue, vehicula in cursus et, malesuada sit amet magna. Nulla mi lacus, tempus sed turpis vitae, tempor gravida enim.
 
         Etiam eros dolor, rhoncus porttitor iaculis et, laoreet ut ex. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam malesuada risus eget consequat tempor. Aenean gravida quam vitae mauris lacinia, id porta massa ultrices. Cras mollis ex vel diam pharetra, quis facilisis velit mollis. Pellentesque ut tellus finibus, laoreet nibh in, ultrices ligula. Suspendisse a leo tellus. Proin eleifend, lectus quis ultrices semper, magna nisl iaculis eros, quis tempus quam metus quis ligula. Fusce malesuada metus ut erat luctus, eget efficitur purus dignissim. Nullam mi nisi, tincidunt sed nibh in, feugiat tempus mi. Nunc pharetra sagittis est, et convallis lectus ullamcorper vitae. Sed venenatis felis tellus, vitae accumsan est fringilla a. Donec sit amet leo sem. Phasellus luctus urna justo, eget ultrices nisi rutrum eget. Donec iaculis tempus purus vitae fermentum. Sed sodales leo non metus scelerisque, non pretium erat consectetur.

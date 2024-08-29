@@ -1,0 +1,10 @@
+.home {
+    position: relative;
+    margin: 0 100px;
+}
+
+.home > *:not(:last-child) {
+    /* margin: 10px; */
+    margin-bottom: 10px;
+    /* padding: 10px; */
+}

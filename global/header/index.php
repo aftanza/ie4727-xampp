@@ -1,6 +1,6 @@
 <?php
-$dropdownItems_first = ['Accessories & Peripherals', 'Components', 'Pre-Built PC'];
-$dropdownItems_second = [['Keyboards', 'Mice'], ['GPU', 'CPU', 'RAM'], []];
+$shop_categories = ['Accessories & Peripherals', 'Components', 'Pre-Built PC'];
+$shop_subCategories = [['Keyboards', 'Mice'], ['GPU', 'CPU', 'RAM'], []];
 
 ?>
 
@@ -25,21 +25,25 @@ $dropdownItems_second = [['Keyboards', 'Mice'], ['GPU', 'CPU', 'RAM'], []];
 
         <div class="shop-dropdown" id="shop-dropdown">
 
-            <?php foreach ($dropdownItems_first as $indexFirst => $itemsFirst): ?>
-                <div class="shop-dropdown-container-first">
+            <?php foreach ($shop_categories as $indexCat => $shopCat): ?>
+                <div class="container-category">
                     <div
-                        class="shop-dropdown-item-first button-shop-dropdown"
-                        onclick="handleDropdownFirstOpen(<?php echo $indexFirst ?>)">
-                        <?php echo $itemsFirst ?>
+                        class="shop-dropdown-category button-shop-dropdown"
+                        onclick="handleDropdownFirstOpen(<?php echo $indexCat ?>)">
+                        <?php echo $shopCat ?>
                     </div>
 
-                    <div class="shop-dropdown-container-second" id='<?php echo 'shop-dropdown-first-' . $indexFirst ?>'>
-                        <?php foreach ($dropdownItems_second[$indexFirst] as $itemsSecond): ?>
-                            <div class="shop-dropdown-item-second button-shop-dropdown">
-                                <?php echo $itemsSecond ?>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
+                    <?php if (!empty($shop_subCategories[$indexCat])): ?>
+                        <div class="container-subcategory" id='<?php echo 'shop-dropdown-category-' . $indexCat ?>'>
+
+                            <?php foreach ($shop_subCategories[$indexCat] as $subCat): ?>
+                                <div class="shop-dropdown-subcategory button-shop-dropdown" onclick="handleShopButton('<?php echo $subCat ?>')">
+                                    <?php echo $subCat ?>
+                                </div>
+                            <?php endforeach; ?>
+
+                        </div>
+                    <?php endif; ?>
 
 
                 </div>
@@ -75,7 +79,7 @@ $dropdownItems_second = [['Keyboards', 'Mice'], ['GPU', 'CPU', 'RAM'], []];
             document.getElementById("shop-dropdown").classList.add("active");
         } else {
             document.getElementById("shop-dropdown").classList.remove("active");
-            let activeMenus = document.getElementsByClassName('shop-dropdown-container-second');
+            let activeMenus = document.getElementsByClassName('container-subcategory');
             for (menu of activeMenus) {
                 menu.classList.remove("active")
             }
@@ -89,15 +93,20 @@ $dropdownItems_second = [['Keyboards', 'Mice'], ['GPU', 'CPU', 'RAM'], []];
 
 
     function handleDropdownFirstOpen(index) {
+        if (index == 2) {
+            const url = `/shop.php?category=prebuilt`;
+            window.location.href = url;
+            return
+        }
 
-        let id = 'shop-dropdown-first-' + String(index)
+        let id = 'shop-dropdown-category-' + String(index)
         if (!isDropdownSecondOpen) {
 
             document.getElementById(id).classList.add("active");
             menuOpenedId = id;
             isDropdownSecondOpen = true;
         } else {
-            let activeMenus = document.getElementsByClassName('shop-dropdown-container-second');
+            let activeMenus = document.getElementsByClassName('container-subcategory');
             for (menu of activeMenus) {
                 menu.classList.remove("active")
             }
@@ -111,4 +120,13 @@ $dropdownItems_second = [['Keyboards', 'Mice'], ['GPU', 'CPU', 'RAM'], []];
 
         }
     }
+
+    function handleShopButton(subcat) {
+        const subCatLow = subcat.toLowerCase();
+        console.log(subCatLow);
+        const url = `/shop.php?category=${subCatLow}`;
+        window.location.href = url;
+        // console.log('Shop button clicked')
+    }
+    // function
 </script>
