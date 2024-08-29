@@ -1,0 +1,96 @@
+/* General  */
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    position: sticky;
+    top: 0;
+    background-color: peachpuff;
+
+    /* margin: 30px 0; */
+
+    height: 60px;
+}
+
+.header > div {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header .search-bar {
+    flex: 1;
+}
+
+.button-header {
+    transition: transform 0.15s ease-in-out;
+    background-color: gray;
+
+    user-select: none !important;
+}
+
+.button-header:hover {
+    color: green;
+    transform: scale(1.1);
+}
+
+/* Shop */
+
+.header .shop-container {
+    padding: 0;
+    position: relative;
+}
+
+.header .shop {
+    padding: 0 20px;
+}
+
+/* Shop - Dropdown */
+
+.header .shop-container .shop-dropdown,
+.shop-dropdown-container-second {
+    display: none;
+    position: absolute;
+    padding: 15px 10px;
+}
+.header .shop-container .shop-dropdown {
+    top: 100%;
+    left: 0;
+}
+.shop-dropdown-container-second {
+    left: 100%;
+    top: 0%;
+}
+
+.header .shop-container .shop-dropdown.active,
+.shop-dropdown-container-second.active {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 10px;
+    /* padding: 20px 10px; */
+    background-color: cornflowerblue;
+}
+
+.shop-dropdown-container-first {
+    position: relative;
+}
+
+.button-shop-dropdown {
+    background-color: rosybrown;
+    transition: transform 0.15s ease-in-out;
+    user-select: none;
+
+    white-space: nowrap;
+    padding: 5px;
+}
+
+.button-shop-dropdown:hover {
+    transform: scale(1.02);
+}
+
+/* Profile */
+
+/* .header .profile {
+    display: flex;
+} */
