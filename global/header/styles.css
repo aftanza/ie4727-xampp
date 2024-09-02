@@ -13,37 +13,70 @@
 }
 
 .header > div {
-    padding: 0 20px;
+    padding: 0 15px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.header .search-bar {
+.header .search {
     flex: 1;
 }
 
 .button-header {
-    transition: transform 0.15s ease-in-out;
-    background-color: gray;
+    /* transition: transform 0.15s ease-in-out; */
+    transition: background-color 0.15s ease-in-out; /* Corrected property */
+    background-color: peachpuff;
 
-    user-select: none !important;
+    user-select: none;
+    cursor: pointer;
 }
 
 .button-header:hover {
     color: green;
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
+    background-color: gray;
+}
+
+/* Header */
+
+.header .logo {
+    cursor: pointer;
 }
 
 /* Shop */
 
 .header .shop-container {
-    padding: 0;
+    /* padding: 0; */
     position: relative;
 }
 
-.header .shop {
-    padding: 0 20px;
+.header .shop-container .shop {
+    /* padding: 0 20px; */
+    /* padding: 5px 10px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; */
+}
+
+.header .shop-container .shop.active {
+    color: green;
+    background-color: gray;
+}
+
+.header .shop-container .shop > img {
+    width: 24px;
+    height: auto;
+    transition: transform 0.15s ease-in-out;
+    /* transform: rotate(180deg); */
+}
+.header .shop-container .shop > img.active {
+    transform: rotate(180deg);
+}
+
+.header .shop-container .shop > h3 {
+    padding-right: 5px;
 }
 
 /* Shop - Dropdown */
@@ -76,6 +109,22 @@
     position: relative;
 }
 
+.shop-dropdown-category {
+    display: flex;
+    /* flex-direction: column; */
+}
+.shop-dropdown-category > p {
+    flex: 1;
+    padding-right: 20px;
+}
+.shop-dropdown-category > img {
+    width: 16px;
+    transition: transform 0.15s ease-in-out;
+}
+.shop-dropdown-category > img.active {
+    transform: rotate(90deg);
+}
+
 .button-shop-dropdown {
     background-color: rosybrown;
     transition: transform 0.15s ease-in-out;
@@ -83,14 +132,35 @@
 
     white-space: nowrap;
     padding: 5px;
+    cursor: pointer;
 }
 
 .button-shop-dropdown:hover {
     transform: scale(1.02);
 }
 
+/* Search */
+
+.header .search form {
+    width: 100%;
+}
+
+.header .search form input {
+    width: 100%;
+    height: 25px;
+}
+
 /* Profile */
 
-/* .header .profile {
+.header .profile {
     display: flex;
-} */
+}
+.header .profile > div {
+    padding: 0 10px;
+}
+
+.icon-profile {
+    width: 24px;
+    height: auto;
+    cursor: pointer;
+}

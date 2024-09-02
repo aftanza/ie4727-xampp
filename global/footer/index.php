@@ -2,23 +2,27 @@
     <div class="socials">
         <img
             class="social-icons"
-            src="../../img/footer/facebook.png"
+            src="../../img/icons/facebook.png"
             alt="facebook">
         <img
             class="social-icons"
-            src="../../img/footer/instagram.png"
+            src="../../img/icons/instagram.png"
             alt="instagram">
         <img
             class="social-icons"
-            src="../../img/footer/twitter.png"
+            src="../../img/icons/twitter.png"
             alt="twitter">
         <img
             class="social-icons"
-            src="../../img/footer/youtube.png"
+            src="../../img/icons/youtube.png"
             alt="youtube">
     </div>
 
-    © 2024 For Web Dev Project. All rights reserved such and such.
+    © 2024 For Web Dev Project. All rights reserved such and such. <br>
 
-    <a href="https://www.flaticon.com/packs/social-16" title="facebook icons">Social icons created by Pixel perfect - Flaticon</a>
+    Social icons created by <a href="https://www.flaticon.com/packs/social-16" title="facebook icons">Pixel perfect - Flaticon</a>.
+    <br>
+    Other icons by <a href="https://ionic.io/ionicons"> ionicons </a>
+    <br>
+
 </div>

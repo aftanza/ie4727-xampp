@@ -1,0 +1,116 @@
+.shop {
+    position: relative;
+}
+
+.shop-content {
+    display: flex;
+}
+
+/* Shop Filter */
+
+.shop-content .shop-filter {
+    background-color: rosybrown;
+    flex-basis: 150px;
+}
+
+/* Shop Content */
+
+.shop-content .shop-items-container {
+    flex: 1;
+}
+
+/* Shop Content - Sort*/
+
+.shop-content .shop-sort {
+    background-color: darkcyan;
+    padding: 5px;
+}
+
+.shop-sort-button {
+    display: inline-block;
+    padding: 10px;
+    background-color: grey;
+    border-radius: 5px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.shop-sort-button.active {
+    background-color: blue;
+}
+
+/* Shop Content - Items*/
+
+.shop-content .shop-items {
+    background-color: coral;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.shop-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.shop-item-container {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+.shop-item .shop-item-img {
+    flex: 1;
+}
+.shop-item .shop-item-text {
+    padding: 10px;
+}
+
+/* Shop Content - Item Cards*/
+
+.card-shop-item {
+    height: 300px;
+    width: 260px;
+    background-color: aquamarine;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.shop-item-text > span {
+    display: block;
+}
+
+/* .card-shop-title {
+    display: block;
+}
+.card-shop-price {
+    display: block;
+}
+.card-shop-rating {
+    display: block;
+} */
+
+/* Shop Pagination */
+
+.shop-page-button {
+    background-color: darkseagreen;
+    width: 32px;
+    height: 32px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.shop .paging-container {
+    display: flex;
+}
+
+.shop-page-prevnext-icon {
+    width: 24px;
+    height: auto;
+}
+
+/* .shop-page-button > p {
+
+} */
