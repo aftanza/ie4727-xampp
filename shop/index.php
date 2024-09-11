@@ -29,7 +29,7 @@ function getLastPageFromSqlListingQuery($paging_itemsPerPage, $sqlQuery, $sqlToR
         echo 'Connection error: ' . mysqli_connect_error();
     }
 
-    $sql_count = str_replace("SELECT id, name, price, rating, img_url", "SELECT COUNT(*) AS total_items", $sqlQuery);
+    $sql_count = str_replace($sqlToReplace, "SELECT COUNT(*) AS total_items", $sqlQuery);
 
     $res = mysqli_query($conn, $sql_count);
     mysqli_close($conn);
@@ -120,6 +120,7 @@ $data = [];
 $sqlParam_sortType = '';
 $sqlParam_categories = '';
 $sqlParam_brands = '';
+$sqlParam_search = '';
 
 switch ($currentSortType) {
     case 'latest':
@@ -142,6 +143,7 @@ $sqlParam_categories = isset($_GET['category']) ? $_GET['category'] : [];
 $sqlParam_brands = isset($_GET['brands']) ? $_GET['brands'] : [];
 $sqlParam_price_min = isset($_GET['price-min']) ? $_GET['price-min'] : '';
 $sqlParam_price_max = isset($_GET['price-max']) ? $_GET['price-max'] : '';
+$sqlParam_search = isset($_GET['search']) ? $_GET['search'] : '';
 
 $data = getListings(
     [
@@ -149,7 +151,8 @@ $data = getListings(
         'categories' => $sqlParam_categories,
         'brands' => $sqlParam_brands,
         'price-min' => $sqlParam_price_min,
-        'price-max' => $sqlParam_price_max
+        'price-max' => $sqlParam_price_max,
+        'search' => $sqlParam_search
     ],
     $paging_itemsPerPage,
     $paging_currentPage,
@@ -203,6 +206,14 @@ function getListings(
             $sql .= ' AND (' . implode(' OR ', $sqlParam_brands) . ') ';
         } else {
             $sql .= ' WHERE (' . implode(' OR ', $sqlParam_brands) . ') ';
+        }
+    }
+
+    if ($params['search']) {
+        if (isThereWhereInString($sql)) {
+            $sql .= ' AND ( LOWER(name) LIKE LOWER(' . "'%" . $params['search'] . "%'"  . ')) ';
+        } else {
+            $sql .= ' WHERE ( LOWER(name) LIKE LOWER(' . "'%" . $params['search'] . "%'" . ')) ';
         }
     }
 
@@ -264,45 +275,60 @@ function isThereWhereInString($str)
 <body class="shop">
     <?php include('../global/header/index.php'); ?>
     <div class="shop-content">
-        <div class="shop-filter">
-            shop filter placeholder
-            <form action="">
-                <div class="shop-filter-text">
-                    Categories
+        <div class="shop-filter" id="shop-filter">
+            <form action="." class="Card" onclick="handleFormClick(this)">
+                <img src="../img/icons/arrow-right.svg" alt="" class="" onclick="handleArrowClick(this)">
+                <div class="shop-filter-category">
+                    <div class="shop-filter-text">
+                        <h1>Categories</h1>
+                    </div>
+
+                    <?php $categories = ['Keyboards', 'Mice', 'Gpu', 'Cpu', 'Ram', 'Prebuilt'] ?>
+                    <?php $current_categories = isset($_GET['category']) ? $_GET['category'] : []; ?>
+
+                    <?php foreach ($categories as $category): ?>
+                        <?php $category_lower = strtolower($category) ?>
+                        <input type="checkbox" id="filter-<?php echo $category_lower ?>" name="category[]" value="<?php echo $category_lower ?>" <?php echo in_array($category_lower, $current_categories) ? 'checked' : '' ?>>
+                        <label for="filter-<?php echo $category_lower ?>"><?php echo $category ?></label><br>
+                    <?php endforeach; ?>
                 </div>
 
-                <?php $categories = ['Keyboards', 'Mice', 'Gpu', 'Cpu', 'Ram', 'Prebuilt'] ?>
-                <?php $current_categories = isset($_GET['category']) ? $_GET['category'] : []; ?>
+                <div class="shop-filter-price">
+                    <div class="shop-filter-text">
+                        <h1>Price</h1>
+                    </div>
 
-                <?php foreach ($categories as $category): ?>
-                    <?php $category_lower = strtolower($category) ?>
-                    <input type="checkbox" id="filter-<?php echo $category_lower ?>" name="category[]" value="<?php echo $category_lower ?>" <?php echo in_array($category_lower, $current_categories) ? 'checked' : '' ?>>
-                    <label for="filter-<?php echo $category_lower ?>"><?php echo $category ?></label><br>
-                <?php endforeach; ?>
+                    <?php $minPrice = isset($_GET['price-min']) ? $_GET['price-min'] : ''; ?>
+                    <?php $maxPrice = isset($_GET['price-max']) ? $_GET['price-max'] : ''; ?>
 
-                <div class="shop-filter-text">
-                    Price
+                    <div class="shop-filter-price-input-container">
+                        <input type="number" id="price-min" name="price-min" value="<?php echo $minPrice ?>">
+                        &nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp
+                        <input type="number" id="price-max" name="price-max" value="<?php echo $maxPrice ?>">
+                    </div>
+
+
                 </div>
 
-                <input type="number" id="price-min" name="price-min" value="price-min">
-                -
-                <input type="number" id="price-max" name="price-max" value="price-max">
-                <br>
+                <div class="shop-filter-brand">
+                    <div class="shop-filter-text">
+                        <h1>Brand</h1>
+                    </div>
 
-                <div class="shop-filter-text">
-                    Brand
+                    <?php $brands = ['Apple', 'Samsung', 'Sony', 'Dell', 'ASUS'] ?>
+                    <?php $current_brands = isset($_GET['brands']) ? $_GET['brands'] : []; ?>
+                    <?php foreach ($brands as $brand): ?>
+                        <?php $brand_lower = strtolower($brand) ?>
+                        <input type="checkbox" id="brand-<?php echo $brand_lower ?>" name="brands[]" value="<?php echo $brand_lower ?>" <?php echo in_array($brand_lower, $current_brands) ? 'checked' : '' ?>>
+                        <label for="brand-<?php echo $brand_lower ?>"><?php echo $brand ?></label><br>
+                    <?php endforeach; ?>
                 </div>
 
-                <?php $brands = ['Apple', 'Samsung', 'Sony', 'Dell', 'ASUS'] ?>
-                <?php $current_brands = isset($_GET['brands']) ? $_GET['brands'] : []; ?>
-                <?php foreach ($brands as $brand): ?>
-                    <?php $brand_lower = strtolower($brand) ?>
-                    <input type="checkbox" id="brand-<?php echo $brand_lower ?>" name="brands[]" value="<?php echo $brand_lower ?>" <?php echo in_array($brand_lower, $current_brands) ? 'checked' : '' ?>>
-                    <label for="brand-<?php echo $brand_lower ?>"><?php echo $brand ?></label><br>
-                <?php endforeach; ?>
+                <div class="shop-filter-buttons">
+                    <input type="submit" value="submit" class="Button">
+                    <input type="reset" value="reset" onclick="resetURL()" class="Button">
+                </div>
 
-                <input type="submit" value="submit">
-                <input type="reset" value="reset" onclick="resetURL()">
             </form>
         </div>
         <div class="shop-items-container">
@@ -325,14 +351,14 @@ function isThereWhereInString($str)
                     <?php foreach ($data as $shopItem): ?>
 
                         <div class="shop-item-container">
-                            <div class="shop-item card-shop-item" onclick="handleShopItem(<?php echo $shopItem['id'] ?>)">
+                            <div class="shop-item Card card-shop-item" onclick="handleShopItem(<?php echo $shopItem['id'] ?>)">
                                 <div class="shop-item-img">
                                     <?php echo $shopItem['img_url'] ?>
                                 </div>
                                 <div class="shop-item-text">
-                                    <span class="card-shop-title">title: <?php echo $shopItem['name'] ?></span>
-                                    <span class="card-shop-price">price: <?php echo $shopItem['price'] ?></span>
-                                    <span class="card-shop-rating">rating: <?php echo $shopItem['rating'] ?></span>
+                                    <span class="card-shop-title"><?php echo $shopItem['name'] ?></span>
+                                    <span class="card-shop-price"><?php echo $shopItem['price'] ?></span>
+                                    <span class="card-shop-rating"><?php echo $shopItem['rating'] ?></span>
                                 </div>
                             </div>
                         </div>
@@ -371,6 +397,39 @@ function isThereWhereInString($str)
 
     </div>
     <?php include('../global/footer/index.php'); ?>
+
+    <script>
+        function handleArrowClick(arrowNode) {
+            const filterNode = arrowNode.parentNode.parentNode;
+            const formNode = arrowNode.parentNode;
+            if (arrowNode.classList.contains('active')) {
+                arrowNode.classList.remove('active');
+                filterNode.classList.remove('active');
+                formNode.classList.remove('active');
+                setTimeout(() => {
+                    filterNode.classList.remove('disable-click');
+                }, 0.25)
+            } else {
+                arrowNode.classList.add('active');
+                filterNode.classList.add('active');
+            }
+
+        }
+
+        function handleFormClick(formNode) {
+            const filterNode = formNode.parentNode;
+
+            if (!filterNode.classList.contains('disable-click')) {
+                filterNode.classList.add("active");
+                formNode.classList.add("active")
+                filterNode.classList.add("disable-click");
+                const img = formNode.querySelector('img');
+                if (img) {
+                    img.classList.add('active');
+                }
+            }
+        }
+    </script>
 
     <script>
         function handleShopSort(currentSortType) {

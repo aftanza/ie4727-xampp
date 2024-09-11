@@ -110,8 +110,8 @@ $shop = [
 
 
     <div class="search">
-        <form method="get">
-            <input type="search" placeholder="Search here..." name="search" id="search">
+        <form method="get" onsubmit="handleSearchSubmit(this, event)">
+            <input type="search" placeholder="Search here..." name="search" id="search" onkeydown="handleSearchKeyDown(this, event)">
         </form>
     </div>
     <div class="profile">
@@ -124,7 +124,26 @@ $shop = [
     </div>
 </div>
 
+<script>
+    function handleSearchSubmit(searchBarNode, event) {
+        event.preventDefault();
+    }
 
+    function handleSearchKeyDown(inputNode, event) {
+        if (event.key === 'Enter' || event.code === 'Enter') {
+            const currentPath = window.location.pathname;
+            // console.log(currentPath);
+            if (currentPath === '/shop/') {
+                const url = new URL(window.location.href);
+                url.searchParams.set('search', encodeURIComponent(inputNode.value));
+                console.log(url);
+                window.location.href = url;
+            } else {
+                window.location.href = window.location.origin + "/shop/?search=" + encodeURIComponent(inputNode.value);
+            }
+        }
+    }
+</script>
 <script>
     // Most of these logic is for the arrow animations and shop dropdown
     let isShopMenuOpen = false;

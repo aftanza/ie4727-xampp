@@ -36,7 +36,7 @@ if (isset($_SESSION['user_id'])) {
 
     $cart_id = $res_str[0]['id'];
 
-    $sql = 'SELECT ci.quantity, l.id, l.name, l.price, l.img_url FROM (cart_items AS ci JOIN listings AS l ON l.id = ci.listing_id) WHERE ci.cart_id = ' . $cart_id . ' ORDER BY ci.created_at ASC';
+    $sql = 'SELECT ci.id AS cart_item_id, ci.quantity, l.id AS listing_id, l.name, l.price, l.img_url FROM (cart_items AS ci JOIN listings AS l ON l.id = ci.listing_id) WHERE ci.cart_id = ' . $cart_id . ' ORDER BY ci.created_at ASC';
 
     $res = mysqli_query($conn, $sql);
     $res_str = mysqli_fetch_all($res, MYSQLI_ASSOC);
@@ -96,7 +96,7 @@ $total = number_format($total, 2);
             </div>
         </div>
         <?php foreach ($data as $index => $cart_listing): ?>
-            <!-- <?php echo $cart_listing[''] ?> -->
+            <!-- <?php echo $cart_listing['cart_item_id'] ?> -->
             <div class="Card--cart cart-item">
                 <div>
                     <?php echo $index + 1 ?>
@@ -114,7 +114,9 @@ $total = number_format($total, 2);
                 </div>
 
                 <div>
-                    <?php echo $cart_listing['quantity'] ?>
+                    <?php $input_id = "cart-item-quantity-input-" . $index ?>
+                    <?php $cart_item_id = $cart_listing['cart_item_id'] ?>
+                    <input id="<?php echo $input_id ?>" class="cart-item-quantity-input" type="number" value="<?php echo $cart_listing['quantity'] ?>" onkeydown="if (event.key === 'Enter') updateQuantity(this, '<?php echo $cart_item_id ?>')" min="0" oninput="checkForNegative(this)">
                 </div>
                 <div class="cart-item-subtotal">
                     <?php echo $cart_listing['subtotal'] ?>
@@ -133,5 +135,19 @@ $total = number_format($total, 2);
     </div>
     <?php include('../global/footer/index.php'); ?>
 </body>
+
+<script>
+    function updateQuantity(input, cartItemId) {
+        let quantity = input.value;
+        window.location.href = window.location.origin + "/cart/components/update_quantity.php?quantity=" + encodeURIComponent(quantity) + "&cart_item_id=" + encodeURIComponent(cartItemId);
+    }
+
+    function checkForNegative(input) {
+        if (input.value < 0) {
+            input.value = 0;
+        }
+    }
+</script>
+
 
 </html>

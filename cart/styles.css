@@ -31,3 +31,7 @@
 .cart-item-total {
     grid-column: 5;
 }
+
+.cart-item-quantity-input {
+    width: 70%;
+}

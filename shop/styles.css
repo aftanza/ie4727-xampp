@@ -4,19 +4,74 @@
 
 .shop-content {
     display: flex;
+    overflow: hidden;
 }
 
 /* Shop Filter */
 
-.shop-content .shop-filter {
+.shop-filter {
+    position: relative;
+    /* transition: all 0.15 ease-in-out; */
+    max-width: 125px;
     background-color: rosybrown;
-    flex-basis: 150px;
+    /* flex-basis: 125px; */
+    transition: all 0.15s ease-in-out;
+}
+
+.shop-filter.active {
+    max-width: 1250px;
+}
+
+.shop-filter > form {
+    width: 200px;
+    transform: translateX(-80%);
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+}
+.shop-filter > form:hover {
+    transform: translateX(-75%);
+}
+.shop-filter > form.active {
+    width: 200px;
+    transform: translateX(0);
+    cursor: default;
+}
+
+.shop-filter > form > div {
+    padding: 20px 0;
+}
+
+.shop-filter > form > img {
+    position: absolute;
+    height: 24px;
+    width: auto;
+    right: 10px;
+    top: 10px;
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+}
+.shop-filter > form > img.active {
+    transform: rotate(180deg);
+}
+
+.shop-filter-price-input-container {
+    display: flex;
+    /* width: 40%; */
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.shop-filter-price-input-container > input[type="number"] {
+    width: 50%;
+    height: 15px;
 }
 
 /* Shop Content */
 
 .shop-content .shop-items-container {
     flex: 1;
+    margin: 16px;
+    /* border-radius: 20px; */
 }
 
 /* Shop Content - Sort*/
@@ -24,20 +79,17 @@
 .shop-content .shop-sort {
     background-color: darkcyan;
     padding: 5px;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
 .shop-sort-button {
     display: inline-block;
     padding: 10px;
-    /* background-color: grey;
-    border-radius: 5px;
-    user-select: none;
-    cursor: pointer; */
 }
 
 .shop-sort-button.active {
     background-color: blue;
-    /* opacity: 0.5; */
 }
 
 /* Shop Content - Items*/
@@ -46,6 +98,7 @@
     background-color: coral;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    border-radius: 8px;
 }
 
 .shop-item {
@@ -62,33 +115,27 @@
 .shop-item .shop-item-img {
     flex: 1;
 }
-.shop-item .shop-item-text {
-    padding: 10px;
-}
+/* .shop-item .shop-item-text {
+} */
 
 /* Shop Content - Item Cards*/
 
 .card-shop-item {
     height: 300px;
     width: 260px;
-    background-color: aquamarine;
-    border-radius: 15px;
-    padding: 10px;
+    cursor: pointer;
+    transition: all 0.15 ease-in-out;
+    /* z-index: 0; */
+}
+.card-shop-item:hover {
+    transform: scale(1.02);
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    /* z-index: -1000; */
 }
 
 .shop-item-text > span {
     display: block;
 }
-
-/* .card-shop-title {
-    display: block;
-}
-.card-shop-price {
-    display: block;
-}
-.card-shop-rating {
-    display: block;
-} */
 
 /* Shop Pagination */
 
@@ -111,7 +158,3 @@
     width: 24px;
     height: auto;
 }
-
-/* .shop-page-button > p {
-
-} */
