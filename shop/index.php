@@ -1,105 +1,100 @@
-<?php
-$testData = [
-    [
-        'img' => 'url1.jpg',
-        'title' => 'Product 1',
-        'price' => '10.99',
-        'rating' => '4.5'
-    ],
-    [
-        'img' => 'url2.jpg',
-        'title' => 'Product 2',
-        'price' => '15.49',
-        'rating' => '4.0'
-    ],
-    [
-        'img' => 'url3.jpg',
-        'title' => 'Product 3',
-        'price' => '8.99',
-        'rating' => '3.8'
-    ],
-    [
-        'img' => 'url4.jpg',
-        'title' => 'Product 4',
-        'price' => '12.75',
-        'rating' => '4.7'
-    ],
-    [
-        'img' => 'url5.jpg',
-        'title' => 'Product 5',
-        'price' => '22.00',
-        'rating' => '5.0'
-    ],
-    [
-        'img' => 'url1.jpg',
-        'title' => 'Product 1',
-        'price' => '10.99',
-        'rating' => '4.5'
-    ],
-    [
-        'img' => 'url2.jpg',
-        'title' => 'Product 2',
-        'price' => '15.49',
-        'rating' => '4.0'
-    ],
-    [
-        'img' => 'url3.jpg',
-        'title' => 'Product 3',
-        'price' => '8.99',
-        'rating' => '3.8'
-    ],
-    [
-        'img' => 'url4.jpg',
-        'title' => 'Product 4',
-        'price' => '12.75',
-        'rating' => '4.7'
-    ],
-    [
-        'img' => 'url5.jpg',
-        'title' => 'Product 5',
-        'price' => '22.00',
-        'rating' => '5.0'
-    ],
-];
+<!DOCTYPE html>
+<html lang="en">
 
-// print_r($testData)
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../global/styles.css">
+    <link rel="stylesheet" href="../global/header/styles.css">
+    <link rel="stylesheet" href="../global/footer/styles.css">
+</head>
+
+<!-- Pagination -->
+<?php
+// Need to add this otherwise php complains for some reason.
+session_start();
 ?>
+<?php
+$paging_itemsPerPage = 21;
+$paging_currentPage = 1;
+$paging_lastPage = -1;
+$paging_page_offset = ($paging_currentPage - 1) * $paging_itemsPerPage;
+
+function getLastPageFromSqlListingQuery($paging_itemsPerPage, $sqlQuery, $sqlToReplace)
+{
+    $conn = mysqli_connect('localhost', 'front_end', '123456789', 'xampp_db');
+    if (!$conn) {
+        echo 'Connection error: ' . mysqli_connect_error();
+    }
+
+    $sql_count = str_replace("SELECT id, name, price, rating, img_url", "SELECT COUNT(*) AS total_items", $sqlQuery);
+
+    $res = mysqli_query($conn, $sql_count);
+    mysqli_close($conn);
+
+    $res_string = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    $totalListings = $res_string[0]['total_items'];
+
+    echo 'total listings: ' . $totalListings;
+    echo '<br>';
+
+    $paging_lastPage = ceil($totalListings / $paging_itemsPerPage);
+    echo 'last page: ' . $paging_lastPage;
+    echo '<br>';
+    if ($paging_lastPage == 0) {
+        $paging_lastPage = 1;
+    }
+    return $paging_lastPage;
+}
+
+function handlePaging(&$paging_currentPage, &$paging_lastPage)
+{
+    $currentUrl = $_SERVER['REQUEST_URI'];
+    if (isset($_GET['page'])) {
+        $paging_currentPage = $_GET['page'];
+        if ($paging_currentPage > $paging_lastPage) {
+            $newUrl = editPageParam($currentUrl, $paging_lastPage);
+
+            header('Location: ' . $newUrl);
+            exit();
+        } else if ($paging_currentPage < 1) {
+
+            $newUrl = editPageParam($currentUrl, 1);
+
+            header('Location: ' . $newUrl);
+            exit();
+        }
+    } else {
+        $hasQueries = strpos($currentUrl, '?') === false ? '?' : '&';
+        $newUrl = $currentUrl . $hasQueries . 'page=1';
+
+        header("Location: " . $newUrl);
+        exit();
+    }
+}
+
+function editPageParam($currentUrl, $targetPage)
+{
+    // Get url param
+    $urlComponents = parse_url($currentUrl);
+    parse_str($urlComponents['query'], $queryParams);
+
+    // Edit page thing
+    $queryParams['page'] = $targetPage;
+    $newQueryString = http_build_query($queryParams);
+
+    // Redirect to new url
+    $newUrl = $urlComponents['path'] . '?' . $newQueryString;
+    return $newUrl;
+};
+?>
+
+<!-- Sort Logic -->
 
 <?php
 $currentUrl = $_SERVER['REQUEST_URI'];
-
-
-$currentPage = 1;
-$lastPage = 10;
-
-if (isset($_GET['page'])) {
-
-    $currentPage = $_GET['page'];
-
-    if ($currentPage > $lastPage) {
-        $currentPage = $lastPage;
-
-        // Get url param
-        $urlComponents = parse_url($currentUrl);
-        parse_str($urlComponents['query'], $queryParams);
-
-        // Edit page thing
-        $queryParams['page'] = 10;
-        $newQueryString = http_build_query($queryParams);
-
-        // Redirect to new url
-        $newUrl = $urlComponents['path'] . '?' . $newQueryString;
-
-        header('Location: ' . $newUrl);
-        exit();
-    }
-} else {
-    $hasQueries = strpos($currentUrl, '?') === false ? '?page=' : '&page=';
-    $newUrl = $currentUrl . $hasQueries . $currentPage;
-
-    header("Location: " . $newUrl);
-    exit();
-}
 
 if (isset($_GET['sort'])) {
     $currentSortType = $_GET['sort'];
@@ -114,22 +109,157 @@ if (isset($_GET['sort'])) {
 
 function isSortActive($type, $current)
 {
-    return $current == $type ? 'active' : '';
-}
+    return $current == $type ? ' active' : '';
+};
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<!-- Data -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="../global/styles.css">
-    <link rel="stylesheet" href="../global/header/styles.css">
-    <link rel="stylesheet" href="../global/footer/styles.css">
-</head>
+<?php
+$data = [];
+$sqlParam_sortType = '';
+$sqlParam_categories = '';
+$sqlParam_brands = '';
+
+switch ($currentSortType) {
+    case 'latest':
+        $sqlParam_sortType = 'created_at DESC';
+        break;
+    case 'highest-rating':
+        $sqlParam_sortType = 'rating DESC';
+        break;
+    case 'highest-price':
+        $sqlParam_sortType = 'price DESC';
+        break;
+    case 'lowest-price':
+        $sqlParam_sortType = 'price ASC';
+        break;
+    default:
+        $sqlParam_sortType = 'created_at DESC';
+};
+
+$sqlParam_categories = isset($_GET['category']) ? $_GET['category'] : [];
+$sqlParam_brands = isset($_GET['brands']) ? $_GET['brands'] : [];
+$sqlParam_price_min = isset($_GET['price-min']) ? $_GET['price-min'] : '';
+$sqlParam_price_max = isset($_GET['price-max']) ? $_GET['price-max'] : '';
+
+$data = getListings(
+    [
+        'order_by' => $sqlParam_sortType,
+        'categories' => $sqlParam_categories,
+        'brands' => $sqlParam_brands,
+        'price-min' => $sqlParam_price_min,
+        'price-max' => $sqlParam_price_max
+    ],
+    $paging_itemsPerPage,
+    $paging_currentPage,
+    $paging_page_offset,
+    $paging_lastPage
+);
+
+// $data = [];
+
+function getListings(
+    $params,
+    &$paging_itemsPerPage,
+    &$paging_currentPage,
+    &$paging_page_offset,
+    &$paging_lastPage
+) {
+    $conn = mysqli_connect('localhost', 'front_end', '123456789', 'xampp_db');
+    if (!$conn) {
+        echo 'Connection error: ' . mysqli_connect_error();
+    }
+
+    $sql = 'SELECT id, name, price, rating, img_url FROM listings';
+
+    if ($params['categories']) {
+        $sqlParam_categories = array_map(function ($category) {
+            return "category = '" . $category . "'";
+        }, $params['categories']);
+        $sql .= ' WHERE (' . implode(' OR ', $sqlParam_categories) . ') ';
+    }
+
+    if ($params['price-min']) {
+        if (isThereWhereInString($sql)) {
+            $sql .= ' AND ( price >= ' . $params['price-min'] . ' ) ';
+        } else {
+            $sql .= ' WHERE ( price >= ' . $params['price-min'] . ' ) ';
+        }
+    }
+    if ($params['price-max']) {
+        if (isThereWhereInString($sql)) {
+            $sql .= ' AND ( price <= ' . $params['price-max'] . ' ) ';
+        } else {
+            $sql .= ' WHERE ( price <= ' . $params['price-max'] . ' ) ';
+        }
+    }
+
+    if ($params['brands']) {
+        $sqlParam_brands = array_map(function ($brand) {
+            return "brand = '" . $brand . "'";
+        }, $params['brands']);
+        if (isThereWhereInString($sql)) {
+            $sql .= ' AND (' . implode(' OR ', $sqlParam_brands) . ') ';
+        } else {
+            $sql .= ' WHERE (' . implode(' OR ', $sqlParam_brands) . ') ';
+        }
+    }
+
+    if ($params['order_by']) {
+        $sql .= ' ORDER BY ' . $params['order_by'];
+    }
+
+    // Handle Paging
+    $sqlToReplace = "SELECT id, name, price, rating, img_url";
+
+    $paging_lastPage = getLastPageFromSqlListingQuery($paging_itemsPerPage, $sql, $sqlToReplace);
+    handlePaging($paging_currentPage, $paging_lastPage);
+
+    $paging_page_offset = ($paging_currentPage - 1) * $paging_itemsPerPage;
+
+    $sql .= ' LIMIT ' . $paging_itemsPerPage . ' OFFSET ' . $paging_page_offset;
+
+    $res = mysqli_query($conn, $sql);
+    $res_str = mysqli_fetch_all($res, MYSQLI_ASSOC);
+
+    echo 'full sql: ' . $sql;
+    echo '<br>';
+
+    echo 'page offset: ' . $paging_page_offset;
+    echo '<br>';
+
+    echo 'sql result: ' . print_r($res_str);
+    echo '<br>';
+    echo '<br>';
+
+    echo 'The cannot modify header thing, to remove just remove the pruint_r above';
+    echo '<br>';
+
+
+    mysqli_close($conn);
+
+    return $res_str;
+
+    // if ($res && mysqli_num_rows($res) > 0) {
+    //     return mysqli_fetch_all($res, MYSQLI_ASSOC);
+    // } else {
+    //     echo 'No results found.';
+    //     return [];  // Return an empty array if no results are found
+    // }
+
+    // print_r($res_string);
+};
+
+function isThereWhereInString($str)
+{
+    if (stripos($str, 'WHERE') !== false) {
+        return true;
+    } else {
+        return false;
+    }
+}
+?>
 
 <body class="shop">
     <?php include('../global/header/index.php'); ?>
@@ -141,26 +271,14 @@ function isSortActive($type, $current)
                     Categories
                 </div>
 
-                <input type="checkbox" id="keyboards" name="keyboards" value="keyboards">
-                <label for="keyboards">Keyboards</label><br>
+                <?php $categories = ['Keyboards', 'Mice', 'Gpu', 'Cpu', 'Ram', 'Prebuilt'] ?>
+                <?php $current_categories = isset($_GET['category']) ? $_GET['category'] : []; ?>
 
-                <input type="checkbox" id="mice" name="mice" value="mice">
-                <label for="mice">Mice</label><br>
-
-                <input type="checkbox" id="boat" name="boat" value="boat">
-                <label for="boat">Boat</label><br>
-
-                <input type="checkbox" id="gpu" name="gpu" value="gpu">
-                <label for="gpu">GPU</label><br>
-
-                <input type="checkbox" id="cpu" name="cpu" value="cpu">
-                <label for="cpu">CPU</label><br>
-
-                <input type="checkbox" id="ram" name="ram" value="ram">
-                <label for="ram">RAM</label><br>
-
-                <input type="checkbox" id="prebuilt" name="prebuilt" value="prebuilt">
-                <label for="prebuilt">Pre-built PC's</label><br>
+                <?php foreach ($categories as $category): ?>
+                    <?php $category_lower = strtolower($category) ?>
+                    <input type="checkbox" id="filter-<?php echo $category_lower ?>" name="category[]" value="<?php echo $category_lower ?>" <?php echo in_array($category_lower, $current_categories) ? 'checked' : '' ?>>
+                    <label for="filter-<?php echo $category_lower ?>"><?php echo $category ?></label><br>
+                <?php endforeach; ?>
 
                 <div class="shop-filter-text">
                     Price
@@ -175,57 +293,53 @@ function isSortActive($type, $current)
                     Brand
                 </div>
 
-                <input type="checkbox" id="apple" name="apple" value="apple">
-                <label for="apple">Apple</label><br>
-
-                <input type="checkbox" id="samsung" name="samsung" value="samsung">
-                <label for="samsung">Samsung</label><br>
-
-                <input type="checkbox" id="sony" name="sony" value="sony">
-                <label for="sony">Sony</label><br>
-
-                <input type="checkbox" id="dell" name="dell" value="dell">
-                <label for="dell">Dell</label><br>
-
-                <input type="checkbox" id="asus" name="asus" value="asus">
-                <label for="asus">ASUS</label><br>
+                <?php $brands = ['Apple', 'Samsung', 'Sony', 'Dell', 'ASUS'] ?>
+                <?php $current_brands = isset($_GET['brands']) ? $_GET['brands'] : []; ?>
+                <?php foreach ($brands as $brand): ?>
+                    <?php $brand_lower = strtolower($brand) ?>
+                    <input type="checkbox" id="brand-<?php echo $brand_lower ?>" name="brands[]" value="<?php echo $brand_lower ?>" <?php echo in_array($brand_lower, $current_brands) ? 'checked' : '' ?>>
+                    <label for="brand-<?php echo $brand_lower ?>"><?php echo $brand ?></label><br>
+                <?php endforeach; ?>
 
                 <input type="submit" value="submit">
-                <input type="reset" value="reset">
+                <input type="reset" value="reset" onclick="resetURL()">
             </form>
         </div>
         <div class="shop-items-container">
             <div class="shop-sort">
-                <div class="shop-sort-button <?php echo isSortActive($currentSortType, 'latest') ?>" id='sort-latest' onclick="handleShopSort('latest')">
+                <div class="shop-sort-button Button <?php echo isSortActive($currentSortType, 'latest') ?>" id='sort-latest' onclick="handleShopSort('latest')">
                     Latest
                 </div>
-                <div class="shop-sort-button <?php echo isSortActive($currentSortType, 'highest-rating') ?>" id='sort-highest-rating' onclick="handleShopSort('highest-rating')">
+                <div class="shop-sort-button Button<?php echo isSortActive($currentSortType, 'highest-rating') ?>" id='sort-highest-rating' onclick="handleShopSort('highest-rating')">
                     Highest Rating
                 </div>
-                <div class="shop-sort-button <?php echo isSortActive($currentSortType, 'lowest-price') ?>" id='sort-lowest-price' onclick="handleShopSort('lowest-price')">
+                <div class="shop-sort-button Button<?php echo isSortActive($currentSortType, 'lowest-price') ?>" id='sort-lowest-price' onclick="handleShopSort('lowest-price')">
                     Lowest Price
                 </div>
-                <div class="shop-sort-button <?php echo isSortActive($currentSortType, 'highest-price') ?>" id='sort-highest-price' onclick="handleShopSort('highest-price')">
+                <div class="shop-sort-button Button<?php echo isSortActive($currentSortType, 'highest-price') ?>" id='sort-highest-price' onclick="handleShopSort('highest-price')">
                     Highest Price
                 </div>
             </div>
             <div class="shop-items">
+                <?php if ($data): ?>
+                    <?php foreach ($data as $shopItem): ?>
 
-                <?php foreach ($testData as $shopItem): ?>
-                    <div class="shop-item-container">
-                        <div class="shop-item card-shop-item">
-                            item card placeholder
-                            <div class="shop-item-img">
-                                <?php echo $shopItem['img'] ?>
-                            </div>
-                            <div class="shop-item-text">
-                                <span class="card-shop-title">title: <?php echo $shopItem['title'] ?></span>
-                                <span class="card-shop-price">price: <?php echo $shopItem['price'] ?></span>
-                                <span class="card-shop-rating">rating: <?php echo $shopItem['rating'] ?></span>
+                        <div class="shop-item-container">
+                            <div class="shop-item card-shop-item" onclick="handleShopItem(<?php echo $shopItem['id'] ?>)">
+                                <div class="shop-item-img">
+                                    <?php echo $shopItem['img_url'] ?>
+                                </div>
+                                <div class="shop-item-text">
+                                    <span class="card-shop-title">title: <?php echo $shopItem['name'] ?></span>
+                                    <span class="card-shop-price">price: <?php echo $shopItem['price'] ?></span>
+                                    <span class="card-shop-rating">rating: <?php echo $shopItem['rating'] ?></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    NO RESULT
+                <?php endif; ?>
 
             </div>
             <div class="shop-paging">
@@ -234,17 +348,17 @@ function isSortActive($type, $current)
                     <!-- <div class="shop-page-button" onclick="handlePrevNext('prev')">
                         <img src=" ../img/icons/arrow-left.svg" class="shop-page-prevnext-icon" alt="">
                     </div> -->
-                    <div class="shop-page-button" style="visibility: <?php echo ($currentPage - 1 > 0) ? 'visible' : 'hidden' ?> ;">
+                    <div class="shop-page-button" style="visibility: <?php echo ($paging_currentPage - 1 > 0) ? 'visible' : 'hidden' ?> ;" onclick="handlePaging('prev')">
                         <img src=" ../img/icons/arrow-left.svg" class="shop-page-prevnext-icon" alt="">
                     </div>
 
                     <?php for ($i = -2; $i <= 2; $i++): ?>
-                        <div class="shop-page-button" style="visibility:<?php echo ($currentPage + $i > 0) && ($currentPage + $i <= $lastPage) ? 'visible' : 'hidden' ?>;">
-                            <p><?php echo $currentPage + $i ?></p>
+                        <div class="shop-page-button" style="visibility:<?php echo ($paging_currentPage + $i > 0) && ($paging_currentPage + $i <= $paging_lastPage) ? 'visible' : 'hidden' ?>;" onclick="handlePaging('page', <?php echo $paging_currentPage + $i ?>)">
+                            <p><?php echo $paging_currentPage + $i ?></p>
                         </div>
                     <?php endfor; ?>
 
-                    <div class="shop-page-button" style="visibility: <?php echo ($lastPage - $currentPage >= 1) ? 'visible' : 'hidden' ?> ;">
+                    <div class="shop-page-button" style="visibility: <?php echo ($paging_lastPage - $paging_currentPage >= 1) ? 'visible' : 'hidden' ?> ;" onclick="handlePaging('next')">
                         <img src=" ../img/icons/arrow-right.svg" class="shop-page-prevnext-icon" alt="">
                     </div>
                     <!-- <div class="shop-page-button" onclick="handlePrevNext('next')">
@@ -270,19 +384,30 @@ function isSortActive($type, $current)
             window.location.href = currentUrl.href;
         }
 
-        function handlePrevNext(arg) {
+        function handlePaging(arg, value = null) {
             const currentUrl = new URL(window.location.href);
-            console.log(currentUrl.searchParams.get('page'))
-            // currentUrl.searchParams.forEach((key, value) => {
-            //     console.log(key, value)
-            // })
+            const currentPage = parseInt(currentUrl.searchParams.get('page'));
 
-            switch (arg) {
-                case 'next':
-                    break
-                case 'prev':
-                    break;
+            if (arg === 'next') {
+                currentUrl.searchParams.set('page', currentPage + 1);
+                window.location.href = currentUrl.href;
+            } else if (arg === 'prev') {
+                currentUrl.searchParams.set('page', currentPage > 1 ? currentPage - 1 : 1);
+                window.location.href = currentUrl.href;
+            } else if (arg === 'page') {
+                currentUrl.searchParams.set('page', value);
+                window.location.href = currentUrl.href;
             }
+
+        }
+
+        function handleShopItem(shopItemId) {
+            console.log(shopItemId);
+            window.location.href = '/shop/item/?id=' + shopItemId;
+        }
+
+        function resetURL() {
+            window.location.href = '/shop/';
         }
     </script>
 </body>

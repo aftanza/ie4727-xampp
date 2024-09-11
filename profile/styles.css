@@ -1,0 +1,23 @@
+.profile-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-content {
+    flex: 1;
+
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button-card {
+    background-color: red;
+    /* display: flex;
+    gap: 10px;
+    flex-direction: column;
+    width: 150px; */
+    /* width: 120px; */
+    /* padding: 40px; */
+}

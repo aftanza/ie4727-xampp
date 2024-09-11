@@ -1,11 +1,18 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require(__DIR__ . '/../persist/account_persist.php');
+?>
+
+<?php
 $shop = [
     [
         'category' => 'Accessories & Peripherals',
         'sub-cat' => [
             [
                 'name' => 'Keyboards',
-                'id' => 'keyboard'
+                'id' => 'keyboards'
             ],
             [
                 'name' => 'Mice',
@@ -157,7 +164,7 @@ $shop = [
     function handleDropdownFirst(categoryId) {
         // If prebuilt go to prebuilt page
         if (categoryId === 'prebuilt') {
-            const url = `/shop?category=prebuilt`;
+            const url = `/shop?category%5B%5D=prebuilt`;
             window.location.href = url;
             return
         }
@@ -205,7 +212,7 @@ $shop = [
 
     function handleDropdownSecond(subcatId) {
         // console.log(subCatLow);
-        const url = `/shop?category=${subcatId}`;
+        const url = `/shop?category%5B%5D=${subcatId}`;
         window.location.href = url;
         // console.log('Shop button clicked')
     }

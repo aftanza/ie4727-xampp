@@ -24,18 +24,31 @@
 }
 
 .button-header {
-    /* transition: transform 0.15s ease-in-out; */
-    transition: background-color 0.15s ease-in-out; /* Corrected property */
-    background-color: peachpuff;
-
-    user-select: none;
+    background-color: #f1f5f9; /* Light gray background */
+    color: #1e293b; /* Dark gray text */
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.375rem; /* Rounded corners */
     cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    user-select: none;
 }
 
-.button-header:hover {
-    color: green;
-    /* transform: scale(1.1); */
-    background-color: gray;
+.button-header:hover,
+.button-header:focus {
+    background-color: #cbd5e1; /* Darker gray on hover/focus */
+    color: #0f172a; /* Darker text on hover/focus */
+}
+
+.button-header:focus {
+    outline: 2px solid #94a3b8;
+    outline-offset: 2px;
 }
 
 /* Header */
@@ -92,7 +105,7 @@
     left: 0;
 }
 .container-subcategory {
-    left: 100%;
+    left: calc(100% + 20px);
     top: 0%;
 }
 
@@ -100,9 +113,28 @@
 .container-subcategory.active {
     display: grid;
     grid-template-columns: auto;
-    gap: 10px;
-    /* padding: 20px 10px; */
-    background-color: cornflowerblue;
+    gap: 12px;
+    padding: 16px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* Animation for dropdown appearance */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header .shop-container .shop-dropdown.active,
+.container-subcategory.active {
+    animation: fadeIn 0.3s ease-out;
 }
 
 .container-category {
@@ -125,18 +157,36 @@
     transform: rotate(90deg);
 }
 
+/* Ai Generated - V0 */
 .button-shop-dropdown {
-    background-color: rosybrown;
-    transition: transform 0.15s ease-in-out;
-    user-select: none;
-
-    white-space: nowrap;
-    padding: 5px;
+    background-color: #f8f9fa; /* Light gray background */
+    color: #495057; /* Dark gray text for good contrast */
+    border: 1px solid #e9ecef; /* Light border for definition */
+    border-radius: 4px; /* Slightly rounded corners */
+    padding: 8px 12px; /* Increased padding for better clickability */
+    margin: 2px 0; /* Small vertical margin between items */
+    font-size: 14px; /* Adjusted font size */
+    font-weight: 500; /* Slightly bold font */
+    white-space: nowrap; /* Maintained from original */
     cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease-in-out; /* Smooth transition for all changes */
+    /* display: block; Full width of the dropdown */
+    text-align: left; /* Align text to the left */
+    /* width: 100%; Ensure full width in the dropdown */
 }
 
 .button-shop-dropdown:hover {
-    transform: scale(1.02);
+    background-color: #e9ecef; /* Slightly darker on hover */
+    color: #212529; /* Darker text on hover for emphasis */
+    transform: scale(1.02); /* Maintained from original */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+}
+
+.button-shop-dropdown:focus {
+    outline: none;
+    border-color: #4dabf7; /* Highlight color for keyboard navigation */
+    box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.25); /* Glow effect for focus */
 }
 
 /* Search */

@@ -29,14 +29,15 @@
 .shop-sort-button {
     display: inline-block;
     padding: 10px;
-    background-color: grey;
+    /* background-color: grey;
     border-radius: 5px;
     user-select: none;
-    cursor: pointer;
+    cursor: pointer; */
 }
 
 .shop-sort-button.active {
     background-color: blue;
+    /* opacity: 0.5; */
 }
 
 /* Shop Content - Items*/
