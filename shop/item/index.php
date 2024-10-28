@@ -1,3 +1,5 @@
+<?php require('global/php/db.php'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +30,7 @@ echo '<br>';
 
 <?php
 $currentUrl = $_SERVER['REQUEST_URI'];
-$conn = mysqli_connect('localhost', 'front_end', '123456789', 'xampp_db');
+$conn = db_connect();
 
 $product_id = '';
 $product_name = '';
@@ -38,9 +40,6 @@ $product_rating = '';
 $product_image_url = '';
 
 if (isset($_GET['id'])) {
-    if (!$conn) {
-        echo 'Connection error: ' . mysqli_connect_error();
-    }
 
     $sql = 'SELECT id, name, description, price, rating, img_url FROM listings WHERE id = ' . $_GET['id'];
     $res = mysqli_query($conn, $sql);
@@ -72,36 +71,51 @@ if (isset($_GET['id'])) {
 <body class="item-page">
     <?php include('../../global/header/index.php'); ?>
     <div class="item-content-container">
-        <div class="item-content">
+        <div class="item-content Content">
             <div class="item-image-container">
-
                 <div class="item-image">
                     Image placeholder
                 </div>
             </div>
+
             <div class="item-text-container">
-                <h1><?php echo $product_name ?></h1>
-                <h3>Description: <?php echo $product_desc ?></h3>
-                <p>PriceL <?php echo $product_price ?></p>
-                <p>Rating: <?php echo $product_rating ?></p>
-                <div class="button-container">
+                <h1 class="item-text-name"><?php echo $product_name ?></h1>
+                <p class="item-text-description">Etiam eros dolor, rhoncus porttitor iaculis et, laoreet ut ex. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam malesuada risus eget consequat tempor. Aenean gravida quam vitae mauris lacinia, id porta massa ultrices. Cras mollis ex vel diam pharetra, quis facilisis velit mollis. Pellentesque ut tellus finibus, laoreet nibh in, ultrices ligula. Suspendisse a leo tellus. Proin eleifend, lectus quis ultrices semper, magna nisl iaculis eros, quis tempus quam metus quis ligula. Fusce malesuada metus ut erat luctus, eget efficitur purus dignissim. Nullam mi nisi, tincidunt sed nibh in, feugiat tempus mi. Nunc pharetra sagittis est, et convallis lectus ullamcorper vitae. Sed venenatis felis tellus, vitae accumsan est fringilla a. Donec sit amet leo sem. Phasellus luctus urna justo, eget ultrices nisi rutrum eget. Donec iaculis tempus purus vitae fermentum. Sed sodales leo non metus scelerisque, non pretium erat consectetur.
+                </p>
+                <!-- <h3 class="item-text-description">Description: <?php echo $product_desc ?></h3> -->
+                <p class="item-text-price">Price: <?php echo $product_price ?></p>
+                <p class="item-text-rating">Rating: <?php echo $product_rating ?></p>
+                <div class="button-input-container">
+                    <input id="input-product-details-cart" class="input-product-details-cart" type="number" min="1" oninput="checkMinOneItem(this)" value="1">
                     <button class="Button" onclick="handleAddToCart(<?php echo $isLoggedIn ?>, <?php echo $product_id ?>)">Add to Cart</button>
                 </div>
             </div>
-
         </div>
+
     </div>
     <?php include('../../global/footer/index.php'); ?>
 </body>
+
 <script>
-    function handleAddToCart(isLoggedIn, productId, quantity = 1) {
-        // add a check for 0 quantity or smthnn
+    function checkMinOneItem(node) {
+        if (node.value < 1) {
+            node.value = 1;
+        }
+    }
+</script>
+
+<script>
+    function handleAddToCart(isLoggedIn, productId) {
         if (isLoggedIn) {
-            window.location.href = window.location.origin + "/shop/item/components/add_to_cart.php?listing_id=" + productId + "&quantity=" + quantity;
+            try {
+                const quantity = document.getElementById("input-product-details-cart").value;
+                window.location.href = window.location.origin + "/shop/item/components/add_to_cart.php?listing_id=" + productId + "&quantity=" + quantity;
+            } catch {
+                console.log("Quantity not found");
+            }
         } else {
             window.location.href = window.location.origin + "/profile/";
         }
-        // console.log(id);
     }
 </script>
 

@@ -1,0 +1,7 @@
+.Card--grid.order-item {
+    grid-template-columns: 50px 1.5fr 1fr 100px 100px 100px;
+}
+
+.order-item-total {
+    grid-column: 5;
+}

@@ -1,20 +1,20 @@
-<div class="footer">
+<div class="Footer footer">
     <div class="socials">
         <img
             class="social-icons"
-            src="../../img/icons/facebook.png"
+            src="/img/icons/facebook.png"
             alt="facebook">
         <img
             class="social-icons"
-            src="../../img/icons/instagram.png"
+            src="/img/icons/instagram.png"
             alt="instagram">
         <img
             class="social-icons"
-            src="../../img/icons/twitter.png"
+            src="/img/icons/twitter.png"
             alt="twitter">
         <img
             class="social-icons"
-            src="../../img/icons/youtube.png"
+            src="/img/icons/youtube.png"
             alt="youtube">
     </div>
 

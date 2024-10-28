@@ -1,3 +1,5 @@
+<?php require('global/php/db.php'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +11,7 @@
     <link rel="stylesheet" href="../../global/styles.css">
     <link rel="stylesheet" href="../../global/header/styles.css">
     <link rel="stylesheet" href="../../global/footer/styles.css">
+    <?php include('global/font/font.php'); ?>
 </head>
 
 <?php
@@ -103,11 +106,8 @@ if (isset($_POST['submit'])) {
             }
         }
         if (!$error_username) {
-            $conn = mysqli_connect('localhost', 'front_end', '123456789', 'xampp_db');
+            $conn = db_connect();
 
-            if (!$conn) {
-                echo 'Connection error: ' . mysqli_connect_error();
-            }
             $sql = 'SELECT username FROM users WHERE username = ' . encapsulateWithSingleQuotes($username) . ";";
             $res = mysqli_query($conn, $sql);
             $res_string = mysqli_fetch_all($res, MYSQLI_ASSOC);
@@ -143,12 +143,7 @@ if (isset($_POST['submit'])) {
     }
 
     if (!($error_email || $error_name || $error_confirm_password || $error_password || $error_username)) {
-        $conn = mysqli_connect('localhost', 'front_end', '123456789', 'xampp_db');
-
-        if (!$conn) {
-            echo 'Connection error: ' . mysqli_connect_error();
-        }
-
+        $conn = db_connect();
 
         $sql = 'INSERT INTO users (name, username, email, password) VALUES ' . "(" . encapsulateWithSingleQuotes($name) . "," . encapsulateWithSingleQuotes($username) . "," . encapsulateWithSingleQuotes($email) . "," . encapsulateWithSingleQuotes($password) . ")";
 

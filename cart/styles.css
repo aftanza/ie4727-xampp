@@ -1,14 +1,7 @@
-.Card--cart {
-    display: grid;
-
+.Card--grid.cart-item {
     grid-template-columns: 50px 1.5fr 1fr 100px 100px 100px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 16px;
-    transition: all 0.3s ease;
 }
+
 /* .Card--cart > * { */
 /* flex: 1; */
 /* display: flex; */
@@ -34,4 +27,8 @@
 
 .cart-item-quantity-input {
     width: 70%;
+}
+
+.cart-item-checkout {
+    grid-column: 6;
 }

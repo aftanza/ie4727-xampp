@@ -1,3 +1,10 @@
+/* div {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    font-optical-sizing: auto;
+    font-style: normal;
+} */
+
 .shop {
     position: relative;
 }
@@ -12,8 +19,8 @@
 .shop-filter {
     position: relative;
     /* transition: all 0.15 ease-in-out; */
-    max-width: 125px;
-    background-color: rosybrown;
+    max-width: 100px;
+    /* background-color: rosybrown; */
     /* flex-basis: 125px; */
     transition: all 0.15s ease-in-out;
 }
@@ -27,13 +34,21 @@
     transform: translateX(-80%);
     transition: all 0.15s ease-in-out;
     cursor: pointer;
+
+    outline: none;
+    border: 2px solid var(--muted-rose);
+    box-shadow: 4px 4px var(--muted-rose);
 }
+
 .shop-filter > form:hover {
     transform: translateX(-75%);
 }
 .shop-filter > form.active {
     width: 200px;
     transform: translateX(0);
+
+    /* background-color: red; */
+
     cursor: default;
 }
 
@@ -77,8 +92,10 @@
 /* Shop Content - Sort*/
 
 .shop-content .shop-sort {
-    background-color: darkcyan;
-    padding: 5px;
+    background-color: #d0d8e0;
+
+    /* outline: 2px solid black; */
+    padding: 10px;
     border-radius: 8px;
     margin-bottom: 10px;
 }
@@ -89,13 +106,14 @@
 }
 
 .shop-sort-button.active {
-    background-color: blue;
+    background-color: #43897a;
+    color: #f2f7f6;
 }
 
 /* Shop Content - Items*/
 
 .shop-content .shop-items {
-    background-color: coral;
+    /* background-color: coral; */
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     border-radius: 8px;
@@ -124,7 +142,7 @@
     height: 300px;
     width: 260px;
     cursor: pointer;
-    transition: all 0.15 ease-in-out;
+    /* transition: all 0.15 ease-in-out; */
     /* z-index: 0; */
 }
 .card-shop-item:hover {
@@ -139,8 +157,18 @@
 
 /* Shop Pagination */
 
+.shop .paging-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2px;
+}
+
 .shop-page-button {
-    background-color: darkseagreen;
+    background-color: #c97d84;
+
+    color: whitesmoke;
+    font-weight: bolder;
+
     width: 32px;
     height: 32px;
     border-radius: 5px;
@@ -150,8 +178,8 @@
     cursor: pointer;
 }
 
-.shop .paging-container {
-    display: flex;
+.shop-page-button.active {
+    background-color: #a2333a;
 }
 
 .shop-page-prevnext-icon {

@@ -1,4 +1,4 @@
-.home > *:not(:last-child) {
+.home-content > *:not(:last-child) {
     /* margin: 10px; */
     margin-bottom: 10px;
     /* padding: 10px; */

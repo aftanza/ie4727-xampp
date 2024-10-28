@@ -1,20 +1,17 @@
-<?php require('global/php/db.php'); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="../../global/styles.css">
-    <link rel="stylesheet" href="../../global/header/styles.css">
-    <link rel="stylesheet" href="../../global/footer/styles.css">
-    <?php include('global/font/font.php'); ?>
+    <link rel="stylesheet" href="../global/styles.css">
 </head>
 
+
 <?php
+
 session_start();
 
 $error_username = '';
@@ -24,7 +21,6 @@ $error_password = '';
 // $name = '';
 $username = '';
 
-// TODO: fix this to use for loop
 if (isset($_POST['submit'])) {
 
     if (empty($_POST['username'])) {
@@ -40,9 +36,13 @@ if (isset($_POST['submit'])) {
     }
 
     if (!($error_username && $error_password)) {
-        $conn = db_connect();
+        $conn = mysqli_connect('localhost', 'front_end', '123456789', 'xampp_db');
 
-        $sql = 'SELECT id, username FROM users WHERE username = ' . encapsulateWithSingleQuotes($username) . ' AND password = ' . encapsulateWithSingleQuotes($password) . ";";
+        if (!$conn) {
+            echo 'Connection error: ' . mysqli_connect_error();
+        }
+
+        $sql = 'SELECT id, username FROM supervisors WHERE username = ' . encapsulateWithSingleQuotes($username) . ' AND password = ' . encapsulateWithSingleQuotes($password) . ";";
         $res = mysqli_query($conn, $sql);
         $res_string = mysqli_fetch_all($res, MYSQLI_ASSOC);
         mysqli_close($conn);
@@ -54,27 +54,24 @@ if (isset($_POST['submit'])) {
             $error_password = 'Password may be wrong';
             $error_username = 'Username may be wrong';
         } else {
-            $_SESSION['username'] = $username;
-            $_SESSION['user_id'] = $res_string[0]['id'];
-            header('Location: ../index.php');
+            $_SESSION['admin_username'] = $username;
+            $_SESSION['admin_user_id'] = $res_string[0]['id'];
+            header('Location: ./home');
             exit();
         }
     }
 }
-
 function encapsulateWithSingleQuotes($str)
 {
     return "'" . $str . "'";
 }
 ?>
 
-<body class="login-page">
-    <?php include('../../global/header/index.php'); ?>
-    <div class="login-content">
+<body class="admin">
+    <div class="admin-login-content">
         <div class="container">
             <h1>Login</h1>
             <form class="Card" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-                <!-- TODO: Fix this to use for loop -->
 
                 <label>Username:</label>
                 <?php if ($error_username): ?>
@@ -97,7 +94,7 @@ function encapsulateWithSingleQuotes($str)
         </div>
 
     </div>
-    <?php include('../../global/footer/index.php'); ?>
+
 </body>
 
 </html>

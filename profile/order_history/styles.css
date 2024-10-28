@@ -1,0 +1,22 @@
+.order_history-item.pointer {
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+.order_history-item.pointer:hover {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    transform: scale(1.01);
+}
+
+/* .Card--cart > * { */
+/* flex: 1; */
+/* display: flex; */
+/* background-color: rebeccapurple; */
+/* flex-direction: column; */
+/* margin: 20px; */
+/* display: block; */
+/* } */
+
+/* .cart-item-imge p { */
+/* width: 40px; */
+/* text-align: center; */
+/* } */

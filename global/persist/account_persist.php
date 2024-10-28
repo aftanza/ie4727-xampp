@@ -3,6 +3,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+echo 'persist implemented';
+
 // Check logout first
 if (isset($_SESSION['log_out']) && $_SESSION['log_out'] == 'true') {
     // session_unset();
@@ -27,8 +29,8 @@ if (isset($_SESSION['log_out']) && $_SESSION['log_out'] == 'true') {
         // else, if there is session username but no cookie, or when user just logged in
         if (isset($_SESSION['user_id'])) {
             // set cookie of user
-            setcookie('username', $_SESSION['username'], time() + 4, '/');
-            setcookie('user_id', $_SESSION['user_id'], time() + 4, '/');
+            setcookie('username', $_SESSION['username'], time() + 300, '/');
+            setcookie('user_id', $_SESSION['user_id'], time() + 300, '/');
         }
     }
 }

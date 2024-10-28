@@ -1,11 +1,4 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-require(__DIR__ . '/../persist/account_persist.php');
-?>
-
-<?php
 $shop = [
     [
         'category' => 'Accessories & Peripherals',
@@ -42,6 +35,10 @@ $shop = [
     [
         'category' => 'Pre-Built PC',
         'id' => 'prebuilt'
+    ],
+    [
+        'category' => 'All items',
+        'id' => 'all_items'
     ]
 ];
 
@@ -49,7 +46,7 @@ $shop = [
 
 
 
-<div class="header">
+<div class="Header header">
     <div class="logo" onclick="handleLogo()">
         <h3>logo</h3>
     </div>
@@ -65,7 +62,7 @@ $shop = [
         <div class="shop button-header" id="shop" onclick="handleShop()">
 
             <h3>Shop </h3>
-            <img src="../../img/icons/arrow-down.svg" alt="">
+            <img src="/img/icons/arrow-down.svg" alt="">
 
         </div>
 
@@ -81,7 +78,7 @@ $shop = [
                         <p><?php echo $shopCat['category'] ?></p>
 
                         <?php if (!empty($shopCat['sub-cat'])): ?>
-                            <img src="../../img/icons/arrow-right.svg" alt="">
+                            <img src="/img/icons/arrow-right.svg" alt="">
 
 
                         <?php endif ?>
@@ -116,10 +113,10 @@ $shop = [
     </div>
     <div class="profile">
         <div class="cart">
-            <img src="../../img/header/cart.svg" alt="" class="icon-profile" onclick="handleCart()">
+            <img src="/img/header/cart.svg" alt="" class="icon-profile" onclick="handleCart()">
         </div>
         <div class="account">
-            <img src="../../img/header/person.svg" alt="" class="icon-profile" onclick="handleAccount()">
+            <img src="/img/header/person.svg" alt="" class="icon-profile" onclick="handleAccount()">
         </div>
     </div>
 </div>
@@ -187,6 +184,13 @@ $shop = [
             window.location.href = url;
             return
         }
+
+        if (categoryId === 'all_items') {
+            const url = `/shop`;
+            window.location.href = url;
+            return
+        }
+
 
         let id = 'shop-dropdown-category-' + categoryId
         let arrowElement = document.getElementById(categoryId).querySelector('img');

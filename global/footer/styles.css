@@ -1,3 +1,13 @@
+.footer {
+    border: 2px solid black;
+    border-bottom: none;
+    /* border-radius: 15px 15px 0 0; */
+    box-shadow: 5px 2px black;
+    background-color: #f2f7f6;
+
+    margin-top: 20px;
+}
+
 .social-icons {
     object-fit: cover;
     max-width: 32px;

@@ -1,3 +1,5 @@
+<?php require('global/php/db.php'); ?>
+
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -12,10 +14,7 @@ if (isset($_GET['listing_id']) && isset($_GET['quantity'])) {
     $listing_id = $_GET['listing_id'];
     $quantity = $_GET['quantity'];
 
-    $conn = mysqli_connect('localhost', 'front_end', '123456789', 'xampp_db');
-    if (!$conn) {
-        echo 'Connection error: ' . mysqli_connect_error();
-    }
+    $conn = db_connect();
 
     $sql = 'SELECT id FROM carts WHERE user_id = ' . $user_id;
     $res = mysqli_query($conn, $sql);

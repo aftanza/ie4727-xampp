@@ -5,31 +5,36 @@
 }
 
 .item-content-container {
+    border-radius: 15px;
+
+    position: relative;
     flex: 1;
-    background-color: violet;
+    /* background-color: var(--offwhite); */
+
+    padding: 40px;
+    margin: 40px;
+
+    display: flex;
+    /* justify-content: center; */
 }
 
 .item-content {
     display: flex;
-    height: 100%;
+    /* background-color: var(--offwhite); */
+}
+
+.item-content > div {
+    flex: 1;
 }
 
 /* Image */
 
 .item-image-container {
-    /* flex: 1 0 400px; */
-    /* max-width: 400px; */
-    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* padding-top: 100px; */
-    /* padding-top: 40px; */
-    /* align-items: center; */
-    height: 100%;
-
-    /* padding: 0 40px; */
-    background-color: red;
+    padding: 20px;
+    /* background-color: red; */
 }
 
 .item-image {
@@ -42,11 +47,25 @@
 
 .item-text-container {
     display: flex;
-    /* flex: 1 1 200px; */
-    flex: 1;
     flex-direction: column;
-    justify-content: center;
-    /* align-items: ce; */
+    /* justify-content: center; */
     padding: 60px;
-    /* max-width: 400px; */
+}
+
+.item-text-container > .item-text-name {
+    margin-bottom: 24px;
+}
+
+.item-text-container > .item-text-description {
+    /* flex: 1; */
+    margin-bottom: 50px;
+}
+
+.item-text-container .button-input-container {
+    padding: 20px 0;
+    margin-top: auto;
+}
+
+.button-input-container input {
+    height: 30px;
 }

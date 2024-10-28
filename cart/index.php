@@ -1,3 +1,6 @@
+<?php require('global/persist/account_persist.php'); ?>
+<?php require('global/php/db.php'); ?>
+
 <!DOCTYPE html>
 
 <head>
@@ -6,17 +9,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="../global/styles.css">
-    <link rel="stylesheet" href="../global/header/styles.css">
-    <link rel="stylesheet" href="../global/footer/styles.css">
+    <link rel="stylesheet" href="/global/styles.css">
+    <link rel="stylesheet" href="/global/header/styles.css">
+    <link rel="stylesheet" href="/global/footer/styles.css">
+    <?php include('global/font/font.php'); ?>
 </head>
 
 <?php
-session_start();
-
 $user_id = '';
 $cart_id = '';
 $total = 0;
+$isCartEmpty = true;
 
 $data = [];
 
@@ -24,11 +27,7 @@ if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     $cart_id = '';
 
-    $conn = mysqli_connect('localhost', 'front_end', '123456789', 'xampp_db');
-
-    if (!$conn) {
-        echo 'Connection error: ' . mysqli_connect_error();
-    }
+    $conn = db_connect();
 
     $sql = 'SELECT id FROM carts WHERE user_id = ' . $user_id;
     $res = mysqli_query($conn, $sql);
@@ -48,6 +47,8 @@ if (isset($_SESSION['user_id'])) {
         addToTotal($total);
         return $i;
     }, $res_str);
+
+    $isCartEmpty = empty($data);
 
     print_r($data);
 
@@ -69,8 +70,8 @@ $total = number_format($total, 2);
 
 <body class="cart-page">
     <?php include('../global/header/index.php'); ?>
-    <div class="cart-content">
-        <div class="Card--cart cart-item">
+    <div class="cart-content Content">
+        <div class="Card--grid cart-item">
             <div>
                 No.
             </div>
@@ -97,7 +98,7 @@ $total = number_format($total, 2);
         </div>
         <?php foreach ($data as $index => $cart_listing): ?>
             <!-- <?php echo $cart_listing['cart_item_id'] ?> -->
-            <div class="Card--cart cart-item">
+            <div class="Card--grid cart-item">
                 <div>
                     <?php echo $index + 1 ?>
                 </div>
@@ -123,7 +124,7 @@ $total = number_format($total, 2);
                 </div>
             </div>
         <?php endforeach; ?>
-        <div class="Card--cart cart-item">
+        <div class="Card--grid cart-item">
             <div class="cart-item-total">
                 Total:
             </div>
@@ -132,11 +133,40 @@ $total = number_format($total, 2);
                 <?php echo $total ?>
             </div>
         </div>
+        <div class="Card--grid cart-item">
+            <div class="cart-item-checkout">
+                <button class="Button" onclick="handleCheckout('<?php echo $cart_id ?>', '<?php echo $user_id ?>', '<?php echo $isCartEmpty ?>')">Checkout</button>
+            </div>
+        </div>
     </div>
     <?php include('../global/footer/index.php'); ?>
 </body>
 
 <script>
+    function handleCheckout(cartId, userId, isCartEmpty) {
+        if (!isCartEmpty) {
+            let form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'components/checkout.php';
+
+            let cartIdInput = document.createElement('input');
+            cartIdInput.type = 'hidden';
+            cartIdInput.name = 'cart_id';
+            cartIdInput.value = cartId;
+
+            let userIdInput = document.createElement('input');
+            userIdInput.type = 'hidden';
+            userIdInput.name = 'user_id';
+            userIdInput.value = userId;
+
+            form.appendChild(cartIdInput);
+            form.appendChild(userIdInput);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+
     function updateQuantity(input, cartItemId) {
         let quantity = input.value;
         window.location.href = window.location.origin + "/cart/components/update_quantity.php?quantity=" + encodeURIComponent(quantity) + "&cart_item_id=" + encodeURIComponent(cartItemId);
