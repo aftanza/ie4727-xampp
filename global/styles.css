@@ -6,6 +6,19 @@
     --muted-rose: #c97d84;
     --muted-rose-dark: #a2333a;
     --cool-sage: #a2b8a5;
+
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --tertiary-color: #2a3244;
+
+    --accent-color: #e74c3c;
+    --background-color: #0a0a0a;
+    --text-color: #d1d5db;
+    --subtext-color: #707786;
+    --hover-color: #2980b9;
+    --neon-green: #00ff9f;
+    --neon-green-muted: #74ff037c;
+    --neon-green-variant: #4caf50;
 }
 
 h1,
@@ -17,15 +30,16 @@ h6,
 p,
 span {
     margin: 0;
-}
-h3 {
-    font-size: 24px;
+    /* color: whitesmoke; */
 }
 
 body {
+    color: var(--text-color);
     position: relative;
     margin: 0 60px;
-    background-color: #e0e5e4;
+    /* background-color: #e0e5e4; */
+    background-color: var(--background-color);
+    position: relative;
 
     font-family: "Quicksand", sans-serif;
     font-weight: 600;
@@ -35,12 +49,20 @@ body {
 
 .Content {
     padding: 10px;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     /* border-radius: 15px; */
-    background-color: #f2f7f6;
+    /* background-color: #f2f7f6; */
     /* width: 85%; */
     margin: 0 auto;
+    min-height: 70%;
     /* box-shadow: 5px 5px black; */
+}
+
+.icon {
+    -webkit-filter: invert(76%) sepia(77%) saturate(2228%) hue-rotate(100deg)
+        brightness(105%) contrast(108%); /* Safari/Chrome */
+    filter: invert(76%) sepia(77%) saturate(2228%) hue-rotate(100deg)
+        brightness(105%) contrast(108%);
 }
 
 /* .Header,
@@ -61,24 +83,27 @@ body {
     font-weight: 600;
     text-align: center;
     text-decoration: none;
-    color: #333333;
-    background-color: var(--teal);
+    /* color: #333333; */
+    color: var(--text-color);
+    background-color: transparent;
     border: none;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
     transition: all 0.3s ease;
     cursor: pointer;
+
+    box-sizing: border-box;
 }
 
 .Button:hover {
-    background-color: #43897a;
+    background-color: #26474d;
     color: #f2f7f6;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
 }
 
 .Button:active {
-    background-color: #2471a3;
+    background-color: var(--neon-green);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     transform: translateY(1px);
 }
@@ -90,7 +115,8 @@ body {
 
 /* Optional: Different button styles */
 .Button--secondary {
-    background-color: #2ecc71;
+    background-color: var(--neon-green);
+    color: black;
 }
 
 .Button--secondary:hover {
@@ -100,6 +126,19 @@ body {
 .Button--secondary:active {
     background-color: #229954;
 }
+
+.Button--tertiary {
+    background-color: transparent;
+    outline: solid 1px var(--neon-green);
+}
+/* .Button--tertiary:hover {
+    background-color: transparent;
+    outline: var(--neon-green);
+}
+.Button--tertiary:active {
+    background-color: transparent;
+    outline: var(--neon-green);
+} */
 
 .Button--danger {
     background-color: #e74c3c;
@@ -114,41 +153,135 @@ body {
 }
 
 .Card {
-    background-color: #ffffff;
+    font-family: "Poppins", sans-serif;
+
+    box-sizing: border-box;
+
+    background-color: var(--tertiary-color);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin: 16px;
     transition: all 0.3s ease;
-    max-width: 300px;
-    outline: 2px solid;
-    outline-offset: 2px;
+    /* max-width: 300px; */
+    outline: solid 1px var(--neon-green-muted);
+    /* outline-offset: 2px; */
+    color: var(--text-color);
     /* width: 100%; */
 }
 
+.Card--Content {
+    color: var(--subtext-color);
+}
+
 .Card > * {
-    /* display: flex; */
-    /* background-color: rebeccapurple; */
-    /* flex-direction: column; */
     margin: 20px;
-    display: block;
+    /* display: block; */
 }
 
 .Card--shop {
-    background-color: #a2b8a5;
+    padding: 0;
+    background-color: var(--tertiary-color);
+    cursor: pointer;
+}
+
+.Card--shop:hover {
+    transform: scale(1.02);
+    /* box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1); */
+    outline: solid 1px var(--neon-green);
+}
+
+.Card--shop > * {
+    margin: 0;
+}
+
+.Card--shop--content {
+    padding: 20px;
 }
 
 .Card--grid {
     display: grid;
 
-    grid-template-columns: 50px 1fr 1fr;
+    /* grid-template-columns: 50px 1fr 1fr; */
 
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* background-color: #ffffff; */
+    /* border-radius: 8px; */
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
     padding: 20px;
     margin: 16px;
+    outline: solid 1px var(--neon-green-muted);
     transition: all 0.3s ease;
+}
+
+.Card--grid > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Card--grid-header {
+    background-color: var(--tertiary-color);
+}
+
+/* Star Styling */
+.star {
+    font-size: 20px; /* Adjust the size as needed */
+    color: gold; /* Color for full stars */
+}
+.star.half {
+    position: relative;
+    display: inline-block;
+    color: gold; /* Color for the half-star */
+}
+.star.half::after {
+    content: "★";
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    overflow: hidden;
+    transform: scaleX(-1);
+    color: #ccc; /* Color for the empty part */
+}
+.star.empty {
+    color: #ccc; /* Color for empty stars */
+}
+
+.Input {
+    box-sizing: border-box;
+    /* width: 100%; */
+    padding: 0.5rem 1rem;
+    border: none;
+    /* border-radius: 4px 0 0 4px; */
+    font-size: 1rem;
+    margin: 0;
+    background-color: transparent;
+    outline: solid 1px var(--neon-green-muted);
+    color: white;
+}
+
+.Input:focus {
+    border: none;
+    outline: solid 2px var(--neon-green);
+    transition: all 0.5 ease-in;
+}
+
+.Input--variant {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: none;
+    outline: solid 1px gray;
+}
+
+.Input--variant:focus {
+    outline: solid 2px var(--text-color);
+}
+
+.Input--disable-decorator {
+    -moz-appearance: textfield;
+}
+.Input--disable-decorator::-webkit-outer-spin-button,
+.Input--disable-decorator::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
 
 /* grid-template-columns: 50px 1fr 1fr; */

@@ -28,7 +28,7 @@ if (isset($_SESSION['user_id'])) {
 
     $conn = db_connect();
 
-    $sql = 'SELECT id, order_status, created_at FROM placed_orders WHERE user_id = ' . $user_id . ' ORDER BY created_at DESC';
+    $sql = 'SELECT id, order_status, created_at, updated_at FROM placed_orders WHERE user_id = ' . $user_id . ' ORDER BY created_at DESC';
     $res = mysqli_query($conn, $sql);
     $res_str = mysqli_fetch_all($res, MYSQLI_ASSOC);
     $placed_orders = $res_str;
@@ -45,7 +45,7 @@ if (isset($_SESSION['user_id'])) {
 // $res = mysqli_query($conn, $sql);
 // $res_str = mysqli_fetch_all($res, MYSQLI_ASSOC);
 
-print_r($placed_orders);
+// print_r($placed_orders);
 
 mysqli_close($conn);
 
@@ -55,7 +55,7 @@ mysqli_close($conn);
 <body class="order_history-page">
     <?php include('../..//global/header/index.php'); ?>
     <div class="order_history-content Content">
-        <div class="Card--grid order_history-item">
+        <div class="Card--grid Card--grid-header order_history-item">
             <div>
                 No.
             </div>
@@ -65,12 +65,16 @@ mysqli_close($conn);
             </div>
 
             <div>
-                Date
+                Date Created
+            </div>
+
+            <div>
+                Date Updated
             </div>
         </div>
         <?php foreach ($placed_orders as $index => $placed_order): ?>
 
-            <div class="Card--grid order_history-item pointer" onclick="handleOnclick('<?php echo $placed_order['id'] ?>')">
+            <div class="Card--grid pointer order_history-item" onclick="handleOnclick('<?php echo $placed_order['id'] ?>')">
                 <div>
                     <?php echo $index + 1 ?>
                 </div>
@@ -81,6 +85,10 @@ mysqli_close($conn);
 
                 <div>
                     <?php echo $placed_order['created_at'] ?>
+                </div>
+
+                <div>
+                    <?php echo $placed_order['updated_at'] ?>
                 </div>
             </div>
         <?php endforeach; ?>

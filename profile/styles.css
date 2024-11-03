@@ -14,10 +14,10 @@
 }
 .button-card {
     background-color: red;
-    /* display: flex;
-    gap: 10px;
+    display: flex;
+    /* gap: 1rem; */
     flex-direction: column;
-    width: 150px; */
+    /* width: 150px; */
     /* width: 120px; */
     /* padding: 40px; */
 }

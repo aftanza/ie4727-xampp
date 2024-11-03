@@ -4,6 +4,15 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 echo 'persist implemented';
+echo '<br>';
+echo 'username: ' . $_SESSION['username'];
+echo '<br>';
+echo 'id: ' . $_SESSION['user_id'];
+// echo '<br>';
+// echo $_COOKIE['username'];
+// echo '<br>';
+// echo $_SESSION['log_out'];
+// echo '<br>';
 
 // Check logout first
 if (isset($_SESSION['log_out']) && $_SESSION['log_out'] == 'true') {

@@ -1,14 +1,106 @@
 .footer {
-    border: 2px solid black;
-    border-bottom: none;
-    /* border-radius: 15px 15px 0 0; */
-    box-shadow: 5px 2px black;
-    background-color: #f2f7f6;
+    background-color: var(--background-color);
+    /* color: #fff; */
+    color: var(--text-color);
+    padding: 3rem 2rem 1rem 2rem;
+    margin-top: 2rem;
+}
 
-    margin-top: 20px;
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 4rem;
+}
+
+.footer-section.links {
+    display: flex;
+    gap: 4rem;
+    flex-wrap: wrap;
+}
+
+.footer-column h3 {
+    color: var(--neon-green);
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-column ul li a {
+    /* color: #fff; */
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+.footer-column ul li a:hover {
+    color: var(--neon-green);
+}
+
+.footer-section.social h3 {
+    color: var(--neon-green);
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.socials {
+    display: flex;
+    gap: 1rem;
 }
 
 .social-icons {
+    width: 32px;
+    height: 32px;
     object-fit: cover;
-    max-width: 32px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.socials a:hover .social-icons {
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 3rem auto 0 auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.875rem;
+    /* color: rgba(255, 255, 255, 0.7); */
+    color: var(--text-color);
+}
+
+.footer-bottom p {
+    margin: 0.5rem 0;
+}
+
+.footer-bottom a {
+    color: var(--neon-green);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline;
+}
+
+.credits {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    /* color: var(--text-color); */
 }

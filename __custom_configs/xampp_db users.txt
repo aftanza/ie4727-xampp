@@ -1,0 +1,12 @@
+# Privileges for `front_end`@`localhost`
+
+GRANT USAGE ON *.* TO `front_end`@`localhost` IDENTIFIED BY PASSWORD '*CC67043C7BCFF5EEA5566BD9B1F3C74FD9A5CF5D';
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON `xampp\_db`.* TO `front_end`@`localhost`;
+
+
+# Privileges for `front_end_admin`@`localhost`
+
+GRANT USAGE ON *.* TO `front_end_admin`@`localhost` IDENTIFIED BY PASSWORD '*81F5E21E35407D884A6CD4A731AEBFB6AF209E1B';
+
+GRANT ALL PRIVILEGES ON `xampp\_db`.* TO `front_end_admin`@`localhost` WITH GRANT OPTION;

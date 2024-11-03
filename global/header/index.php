@@ -53,7 +53,7 @@ $shop = [
 
     <div class="about-container" onclick="handleAbout()">
         <div class="about button-header">
-            <h3>About</h3>
+            <h3>ABOUT</h3>
         </div>
 
     </div>
@@ -61,12 +61,12 @@ $shop = [
     <div class="shop-container">
         <div class="shop button-header" id="shop" onclick="handleShop()">
 
-            <h3>Shop </h3>
-            <img src="/img/icons/arrow-down.svg" alt="">
+            <h3>SHOP</h3>
+            <img class="icon" src="/img/icons/arrow-down.svg" alt="">
 
         </div>
 
-        <div class="shop-dropdown" id="shop-dropdown">
+        <div class="shop-dropdown dropdown" id="shop-dropdown">
 
             <?php foreach ($shop as $shopCat): ?>
                 <div class="container-category">
@@ -78,7 +78,7 @@ $shop = [
                         <p><?php echo $shopCat['category'] ?></p>
 
                         <?php if (!empty($shopCat['sub-cat'])): ?>
-                            <img src="/img/icons/arrow-right.svg" alt="">
+                            <img class="icon" src="/img/icons/arrow-right.svg" alt="">
 
 
                         <?php endif ?>
@@ -86,7 +86,7 @@ $shop = [
                     </div>
 
                     <?php if (!empty($shopCat['sub-cat'])): ?>
-                        <div class="container-subcategory" id='<?php echo 'shop-dropdown-category-' . $shopCat['id'] ?>'>
+                        <div class="container-subcategory dropdown" id='<?php echo 'shop-dropdown-category-' . $shopCat['id'] ?>'>
 
                             <?php foreach ($shopCat['sub-cat'] as $subCat): ?>
                                 <div class="shop-dropdown-subcategory button-shop-dropdown" onclick="handleDropdownSecond('<?php echo $subCat['id'] ?>')">
@@ -108,15 +108,15 @@ $shop = [
 
     <div class="search">
         <form method="get" onsubmit="handleSearchSubmit(this, event)">
-            <input type="search" placeholder="Search here..." name="search" id="search" onkeydown="handleSearchKeyDown(this, event)">
+            <input class="Input" type="search" placeholder="Search here..." name="search" id="search" onkeydown="handleSearchKeyDown(this, event)">
         </form>
     </div>
     <div class="profile">
         <div class="cart">
-            <img src="/img/header/cart.svg" alt="" class="icon-profile" onclick="handleCart()">
+            <img src="/img/header/cart.svg" alt="" class="icon icon-profile" onclick="handleCart()">
         </div>
         <div class="account">
-            <img src="/img/header/person.svg" alt="" class="icon-profile" onclick="handleAccount()">
+            <img src="/img/header/person.svg" alt="" class="icon icon-profile" onclick="handleAccount()">
         </div>
     </div>
 </div>
@@ -133,10 +133,11 @@ $shop = [
             if (currentPath === '/shop/') {
                 const url = new URL(window.location.href);
                 url.searchParams.set('search', encodeURIComponent(inputNode.value));
-                console.log(url);
+                url.searchParams.set('sort', encodeURIComponent('relevant'));
+                // console.log(url);
                 window.location.href = url;
             } else {
-                window.location.href = window.location.origin + "/shop/?search=" + encodeURIComponent(inputNode.value);
+                window.location.href = window.location.origin + "/shop/?search=" + encodeURIComponent(inputNode.value) + '&sort=relevant';
             }
         }
     }

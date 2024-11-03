@@ -39,23 +39,29 @@ if (isset($_POST['submit'])) {
         $password = htmlspecialchars($_POST['password']);
     }
 
-    if (!($error_username && $error_password)) {
+    if (!(empty($_POST['username']) || empty($_POST['password']))) {
         $conn = db_connect();
+
+        // Check Username
+        $sql = 'SELECT id, username FROM users WHERE username = ' . encapsulateWithSingleQuotes($username);
+        $res = mysqli_query($conn, $sql);
+        $username_exist_list = mysqli_fetch_all($res, MYSQLI_ASSOC);
 
         $sql = 'SELECT id, username FROM users WHERE username = ' . encapsulateWithSingleQuotes($username) . ' AND password = ' . encapsulateWithSingleQuotes($password) . ";";
         $res = mysqli_query($conn, $sql);
-        $res_string = mysqli_fetch_all($res, MYSQLI_ASSOC);
-        mysqli_close($conn);
-        // print_r($res_string);
-        // echo '<br>';
-        // echo $res_string[0]['id'];
+        $correct_credentials_list = mysqli_fetch_all($res, MYSQLI_ASSOC);
 
-        if (!$res_string) {
-            $error_password = 'Password may be wrong';
-            $error_username = 'Username may be wrong';
+
+        if (!$username_exist_list) {
+            $error_password = '';
+            $error_username = 'User does not exist';
+        } elseif (!$correct_credentials_list) {
+            $error_password = 'Incorrect password';
+            $error_username = '';
         } else {
             $_SESSION['username'] = $username;
-            $_SESSION['user_id'] = $res_string[0]['id'];
+            $_SESSION['user_id'] = $correct_credentials_list[0]['id'];
+            mysqli_close($conn);
             header('Location: ../index.php');
             exit();
         }
@@ -73,29 +79,29 @@ function encapsulateWithSingleQuotes($str)
     <div class="login-content">
         <div class="container">
             <h1>Login</h1>
-            <form class="Card" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-                <!-- TODO: Fix this to use for loop -->
+            <form class="Card login-form" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <?php if ($error_username): ?>
+                        <p class='error'><?php echo $error_username; ?></p>
+                    <?php endif; ?>
+                    <input type="text" class='Input Input--variant' name="username" id="username" placeholder="Enter your username" <?php echo $username ? "value=\"$username\"" : ""; ?>>
+                </div>
 
-                <label>Username:</label>
-                <?php if ($error_username): ?>
-                    <?php echo "<p class='error'>" . $error_username . "</p>" ?>
-                <?php endif; ?>
-                <?php if ($username): ?>
-                    <?php echo "<input type='username' name='username' id='username' value=" . $username . ">" ?>
-                <?php else: ?>
-                    <input type="username" name="username" id="username" placeholder="Input username here">
-                <?php endif; ?>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <?php if ($error_password): ?>
+                        <p class='error'><?php echo $error_password; ?></p>
+                    <?php endif; ?>
+                    <input type="password" class='Input Input--variant' name="password" id="password" placeholder="Enter your password">
+                </div>
 
-                <label>Password:</label>
-                <?php if ($error_password): ?>
-                    <?php echo "<p class='error'>" . $error_password . "</p>" ?>
-                <?php endif; ?>
-                <input type="password" name="password" id="password" placeholder="Input password here">
+                <div class="login-button-container">
+                    <button class="Button Button--secondary" name="submit" value="submit">Login</button>
+                </div>
 
-                <button onclick="handleSubmit()" name="submit" value="submit">Submit</button>
             </form>
         </div>
-
     </div>
     <?php include('../../global/footer/index.php'); ?>
 </body>

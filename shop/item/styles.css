@@ -1,3 +1,7 @@
+.color-green {
+    color: var(--neon-green);
+}
+
 .item-page {
     display: flex;
     flex-direction: column;
@@ -38,7 +42,10 @@
 }
 
 .item-image {
-    background-color: beige;
+    background-color: var(--tertiary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 400px;
     width: 400px;
 }
@@ -62,6 +69,8 @@
 }
 
 .item-text-container .button-input-container {
+    display: flex;
+    gap: 20px;
     padding: 20px 0;
     margin-top: auto;
 }

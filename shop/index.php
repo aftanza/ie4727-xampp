@@ -45,6 +45,8 @@ $data = getListings(
     $paging_lastPage,
     $conn
 );
+
+require_once 'global/php/convert_to_stars.php';
 ?>
 
 <body class="shop">
@@ -52,10 +54,10 @@ $data = getListings(
     <div class="shop-content Content">
         <div class="shop-filter" id="shop-filter">
             <form action="." class="Card" onclick="handleFormClick(this)">
-                <img src="/img/icons/arrow-right.svg" alt="" class="" onclick="handleArrowClick(this)">
+                <img src="/img/icons/arrow-right.svg" alt="" class="icon" onclick="handleArrowClick(this)">
                 <div class="shop-filter-category">
                     <div class="shop-filter-text">
-                        <h1>Categories</h1>
+                        <span class="filter-header">Categories</span>
                     </div>
 
                     <?php $categories = ['Keyboards', 'Mice', 'Gpu', 'Cpu', 'Ram', 'Prebuilt'] ?>
@@ -70,16 +72,16 @@ $data = getListings(
 
                 <div class="shop-filter-price">
                     <div class="shop-filter-text">
-                        <h1>Price</h1>
+                        <span class="filter-header">Price</span>
                     </div>
 
                     <?php $minPrice = isset($_GET['price-min']) ? $_GET['price-min'] : ''; ?>
                     <?php $maxPrice = isset($_GET['price-max']) ? $_GET['price-max'] : ''; ?>
 
                     <div class="shop-filter-price-input-container">
-                        <input type="number" id="price-min" name="price-min" value="<?php echo $minPrice ?>">
+                        <input class="Input Input--variant Input--disable-decorator" placeholder="Min" type="number" id="price-min" name="price-min" value="<?php echo $minPrice ?>">
                         &nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp
-                        <input type="number" id="price-max" name="price-max" value="<?php echo $maxPrice ?>">
+                        <input class="Input Input--variant Input--disable-decorator" placeholder="Max" type="number" id="price-max" name="price-max" value="<?php echo $maxPrice ?>">
                     </div>
 
 
@@ -87,7 +89,7 @@ $data = getListings(
 
                 <div class="shop-filter-brand">
                     <div class="shop-filter-text">
-                        <h1>Brand</h1>
+                        <span class="filter-header">Brand</span>
                     </div>
 
                     <?php $brands = ['Apple', 'Samsung', 'Sony', 'Dell', 'ASUS'] ?>
@@ -100,14 +102,17 @@ $data = getListings(
                 </div>
 
                 <div class="shop-filter-buttons">
-                    <input type="submit" value="submit" class="Button">
-                    <input type="reset" value="reset" onclick="resetURL()" class="Button">
+                    <input type="submit" value="submit" class="Button Button--secondary">
+                    <input type="reset" value="reset" onclick="resetURL()" class="Button Button--tertiary">
                 </div>
 
             </form>
         </div>
         <div class="shop-items-container">
             <div class="shop-sort">
+                <div class="shop-sort-button Button <?php echo isSortActive($sort_currentSortType, 'relevant') ?>" id='sort-latest' onclick="handleShopSort('relevant')">
+                    Relevant
+                </div>
                 <div class="shop-sort-button Button <?php echo isSortActive($sort_currentSortType, 'latest') ?>" id='sort-latest' onclick="handleShopSort('latest')">
                     Latest
                 </div>
@@ -127,13 +132,19 @@ $data = getListings(
 
                         <div class="shop-item-container">
                             <div class="shop-item Card Card--shop card-shop-item" onclick="handleShopItem(<?php echo $shopItem['id'] ?>)">
-                                <div class="shop-item-img">
-                                    <?php echo $shopItem['img_url'] ?>
+                                <div class="shop-item-img Card--shop--header">
+                                    <img src="<?php echo $shopItem['img_url'] ?>" alt="image">
                                 </div>
-                                <div class="shop-item-text">
+                                <div class="Card--shop--content shop-item-text">
                                     <span class="card-shop-title"><?php echo $shopItem['name'] ?></span>
-                                    <span class="card-shop-price"><?php echo $shopItem['price'] ?></span>
-                                    <span class="card-shop-rating"><?php echo $shopItem['rating'] ?></span>
+                                    <span class="card-shop-rating">
+                                        <?php
+                                        // Function to convert float rating to star rating
+
+                                        echo convertToStars($shopItem['rating']);
+                                        ?>
+                                    </span>
+                                    <span class="card-shop-price">$<?php echo $shopItem['price'] ?></span>
                                 </div>
                             </div>
                         </div>
@@ -150,7 +161,7 @@ $data = getListings(
                         <img src=" ../img/icons/arrow-left.svg" class="shop-page-prevnext-icon" alt="">
                     </div> -->
                     <div class="shop-page-button" style="visibility: <?php echo ($paging_currentPage - 1 > 0) ? 'visible' : 'hidden' ?> ;" onclick="handlePaging('prev')">
-                        <img src=" /img/icons/arrow-left.svg" class="shop-page-prevnext-icon" alt="">
+                        <img src=" /img/icons/arrow-left.svg" class="icon shop-page-prevnext-icon" alt="">
                     </div>
 
                     <?php for ($i = -2; $i <= 2; $i++): ?>
@@ -160,7 +171,7 @@ $data = getListings(
                     <?php endfor; ?>
 
                     <div class="shop-page-button" style="visibility: <?php echo ($paging_lastPage - $paging_currentPage >= 1) ? 'visible' : 'hidden' ?> ;" onclick="handlePaging('next')">
-                        <img src=" /img/icons/arrow-right.svg" class="shop-page-prevnext-icon" alt="">
+                        <img src=" /img/icons/arrow-right.svg" class="icon shop-page-prevnext-icon" alt="">
                     </div>
                     <!-- <div class="shop-page-button" onclick="handlePrevNext('next')">
                         <img src=" ../img/icons/arrow-right.svg" class="shop-page-prevnext-icon" alt="">

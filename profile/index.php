@@ -33,14 +33,14 @@ function checkIsLoggedIn()
 <body class="profile-page">
     <?php include('global/header/index.php'); ?>
     <?php $isLoggedIn = checkIsLoggedIn(); ?>
-    <div class="profile-content">
+    <div class="profile-content Content">
         <div class="button-card Card">
             <?php if ($isLoggedIn === false): ?>
-                <div class="Button" onclick="handleButton('signup')">Sign-up</div>
-                <div class="Button" onclick="handleButton('login')">Login</div>
+                <div class="Button Button--secondary" onclick="handleButton('signup')">Sign-up</div>
+                <div class="Button Button--secondary" onclick="handleButton('login')">Login</div>
             <?php else: ?>
-                <div class="Button" onclick="handleButton('order_history')">Order History</div>
-                <div class="Button" onclick="handleButton('logout')">Logout</div>
+                <div class="Button Button--secondary" onclick="handleButton('order_history')">Order History</div>
+                <div class="Button Button--secondary" onclick="handleButton('logout')">Logout</div>
             <?php endif; ?>
         </div>
     </div>

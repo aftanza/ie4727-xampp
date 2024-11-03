@@ -14,7 +14,7 @@ categories_updated = ["keyboards", "mice", "gpu", "cpu", "ram", "prebuilt"]
 brands_updated = ["apple", "samsung", "sony", "dell", "asus"]
 
 # Start creating SQL insert command
-insert_sql = "INSERT INTO `listings` (`id`, `name`, `descripton`, `price`, `category`, `img_url`, `brand`, `rating`, `created_at`, `updated_at`) VALUES\n"
+insert_sql = "INSERT INTO `listings` (`id`, `name`, `description`, `price`, `category`, `img_url`, `brand`, `rating`, `created_at`, `updated_at`) VALUES\n"
 
 # Generate 200 dummy data rows
 values = []

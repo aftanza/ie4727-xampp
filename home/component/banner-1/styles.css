@@ -1,4 +1,20 @@
 .banner-1 {
-    background-color: brown;
-    height: 80px;
+    height: 120px;
+    position: relative;
+}
+
+.banner-1 > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-1-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* background-color: var(--neon-green); */
+    padding: 24px;
+    /* color: black; */
 }

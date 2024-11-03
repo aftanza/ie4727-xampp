@@ -50,7 +50,7 @@ if (isset($_SESSION['user_id'])) {
 
 
 
-    print_r($placed_cart_items);
+    // print_r($placed_cart_items);
 } else {
     header('Location: /profile');
 }
@@ -82,7 +82,7 @@ mysqli_close($conn);
 <body class="order-page">
     <?php include('../../../global/header/index.php'); ?>
     <div class="order-content Content">
-        <div class="Card--grid order-item">
+        <div class="Card--grid Card--grid-header order-item">
             <div>
                 No.
             </div>
@@ -113,7 +113,7 @@ mysqli_close($conn);
                     <?php echo $index + 1 ?>
                 </div>
                 <div class="cart-item-image">
-                    <p><?php echo $placed_cart_item['img_url'] ?></p>
+                    <img src="<?php echo $placed_cart_item['img_url'] ?>" alt="">
                 </div>
 
                 <div class="cart-item-name">
@@ -128,7 +128,7 @@ mysqli_close($conn);
                     <?php echo $placed_cart_item['quantity'] ?>
                 </div>
                 <div>
-                    <?php echo $placed_cart_item['subtotal'] ?>
+                    $<?php echo $placed_cart_item['subtotal'] ?>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -139,7 +139,7 @@ mysqli_close($conn);
             </div>
 
             <div>
-                <?php echo $total ?>
+                $<?php echo $total ?>
             </div>
         </div>
 

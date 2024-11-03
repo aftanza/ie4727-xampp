@@ -1,4 +1,5 @@
 <?php require('global/php/db.php'); ?>
+<?php require_once 'global/php/convert_to_stars.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,10 +22,10 @@ if (isset($_SESSION['username'])) {
     $isLoggedIn = 'true';
     $username = $_SESSION['username'];
 }
-echo 'isLoggedIn: ' . $isLoggedIn;
-echo '<br>';
-echo 'username: ' . $username;
-echo '<br>';
+// echo 'isLoggedIn: ' . $isLoggedIn;
+// echo '<br>';
+// echo 'username: ' . $username;
+// echo '<br>';
 
 ?>
 
@@ -49,7 +50,7 @@ if (isset($_GET['id'])) {
     // echo '<br>';
 
     if ($res_str) {
-        echo print_r($res_str);
+        // echo print_r($res_str);
         $product_id = $res_str[0]['id'];
         $product_name = $res_str[0]['name'];
         $product_desc = $res_str[0]['description'];
@@ -74,7 +75,7 @@ if (isset($_GET['id'])) {
         <div class="item-content Content">
             <div class="item-image-container">
                 <div class="item-image">
-                    Image placeholder
+                    <img src="<?php echo $product_image_url ?>" alt="Image">
                 </div>
             </div>
 
@@ -83,11 +84,11 @@ if (isset($_GET['id'])) {
                 <p class="item-text-description">Etiam eros dolor, rhoncus porttitor iaculis et, laoreet ut ex. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam malesuada risus eget consequat tempor. Aenean gravida quam vitae mauris lacinia, id porta massa ultrices. Cras mollis ex vel diam pharetra, quis facilisis velit mollis. Pellentesque ut tellus finibus, laoreet nibh in, ultrices ligula. Suspendisse a leo tellus. Proin eleifend, lectus quis ultrices semper, magna nisl iaculis eros, quis tempus quam metus quis ligula. Fusce malesuada metus ut erat luctus, eget efficitur purus dignissim. Nullam mi nisi, tincidunt sed nibh in, feugiat tempus mi. Nunc pharetra sagittis est, et convallis lectus ullamcorper vitae. Sed venenatis felis tellus, vitae accumsan est fringilla a. Donec sit amet leo sem. Phasellus luctus urna justo, eget ultrices nisi rutrum eget. Donec iaculis tempus purus vitae fermentum. Sed sodales leo non metus scelerisque, non pretium erat consectetur.
                 </p>
                 <!-- <h3 class="item-text-description">Description: <?php echo $product_desc ?></h3> -->
-                <p class="item-text-price">Price: <?php echo $product_price ?></p>
-                <p class="item-text-rating">Rating: <?php echo $product_rating ?></p>
+                <p class="item-text-price">Price: <span class="color-green">$<?php echo $product_price ?></span></p>
+                <p class="item-text-rating">Rating: <?php echo convertToStars($product_rating) ?></p>
                 <div class="button-input-container">
-                    <input id="input-product-details-cart" class="input-product-details-cart" type="number" min="1" oninput="checkMinOneItem(this)" value="1">
-                    <button class="Button" onclick="handleAddToCart(<?php echo $isLoggedIn ?>, <?php echo $product_id ?>)">Add to Cart</button>
+                    <input id="input-product-details-cart" class="input-product-details-cart Input" type="number" min="1" oninput="checkMinOneItem(this)" value="1">
+                    <button class="Button Button--secondary" onclick="handleAddToCart(<?php echo $isLoggedIn ?>, <?php echo $product_id ?>)">Add to Cart</button>
                 </div>
             </div>
         </div>

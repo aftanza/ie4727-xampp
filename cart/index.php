@@ -50,7 +50,7 @@ if (isset($_SESSION['user_id'])) {
 
     $isCartEmpty = empty($data);
 
-    print_r($data);
+    // print_r($data);
 
     mysqli_close($conn);
 } else {
@@ -71,7 +71,7 @@ $total = number_format($total, 2);
 <body class="cart-page">
     <?php include('../global/header/index.php'); ?>
     <div class="cart-content Content">
-        <div class="Card--grid cart-item">
+        <div class="Card--grid Card--grid-header cart-item">
             <div>
                 No.
             </div>
@@ -103,7 +103,7 @@ $total = number_format($total, 2);
                     <?php echo $index + 1 ?>
                 </div>
                 <div class="cart-item-image">
-                    <p><?php echo $cart_listing['img_url'] ?></p>
+                    <img src="<?php echo $cart_listing['img_url'] ?>" alt="">
                 </div>
 
                 <div class="cart-item-name">
@@ -111,16 +111,16 @@ $total = number_format($total, 2);
                 </div>
 
                 <div>
-                    <?php echo $cart_listing['price'] ?>
+                    $<?php echo $cart_listing['price'] ?>
                 </div>
 
                 <div>
                     <?php $input_id = "cart-item-quantity-input-" . $index ?>
                     <?php $cart_item_id = $cart_listing['cart_item_id'] ?>
-                    <input id="<?php echo $input_id ?>" class="cart-item-quantity-input" type="number" value="<?php echo $cart_listing['quantity'] ?>" onkeydown="if (event.key === 'Enter') updateQuantity(this, '<?php echo $cart_item_id ?>')" min="0" oninput="checkForNegative(this)">
+                    <input id="<?php echo $input_id ?>" class="cart-item-quantity-input Input--variant Input--disable-decorator" type="number" value="<?php echo $cart_listing['quantity'] ?>" onkeydown="if (event.key === 'Enter') updateQuantity(this, '<?php echo $cart_item_id ?>')" min="0" oninput="checkForNegative(this)">
                 </div>
                 <div class="cart-item-subtotal">
-                    <?php echo $cart_listing['subtotal'] ?>
+                    $<?php echo $cart_listing['subtotal'] ?>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -130,12 +130,12 @@ $total = number_format($total, 2);
             </div>
 
             <div>
-                <?php echo $total ?>
+                $<?php echo $total ?>
             </div>
         </div>
         <div class="Card--grid cart-item">
             <div class="cart-item-checkout">
-                <button class="Button" onclick="handleCheckout('<?php echo $cart_id ?>', '<?php echo $user_id ?>', '<?php echo $isCartEmpty ?>')">Checkout</button>
+                <button class="Button Button--secondary" onclick="handleCheckout('<?php echo $cart_id ?>', '<?php echo $user_id ?>', '<?php echo $isCartEmpty ?>')">Checkout</button>
             </div>
         </div>
     </div>

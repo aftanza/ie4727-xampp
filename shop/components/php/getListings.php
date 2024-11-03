@@ -43,17 +43,31 @@ function getListings(
         }
     }
 
+    $exactMatchCondition = '';
     if ($params['search']) {
-        if (isThereWhereInString($sql)) {
-            $sql .= ' AND ( LOWER(name) LIKE LOWER(' . "'%" . $params['search'] . "%'"  . ')) ';
-        } else {
-            $sql .= ' WHERE ( LOWER(name) LIKE LOWER(' . "'%" . $params['search'] . "%'" . ')) ';
-        }
-    }
+        $decodedSearch = urldecode($params['search']);
+        $searchTerms = explode(' ', $decodedSearch);
+        $searchConditions = [];
 
-    if ($params['order_by']) {
+        $exactMatchCondition = 'LOWER(name) = LOWER(' . "'" . $decodedSearch . "'" . ')';
+
+        foreach ($searchTerms as $term) {
+            $searchConditions[] = 'LOWER(name) LIKE LOWER(' . "'%" . $term . "%')";
+        }
+
+        $likeConditions = implode(' AND ', $searchConditions);
+
+        if (isThereWhereInString($sql)) {
+            $sql .= ' AND (' . $exactMatchCondition . ' OR (' . $likeConditions . '))';
+        } else {
+            $sql .= ' WHERE (' . $exactMatchCondition . ' OR (' . $likeConditions . '))';
+        }
+
+        $sql .= ' ORDER BY (' . $exactMatchCondition . ') DESC, ' . $params['order_by'];
+    } else {
         $sql .= ' ORDER BY ' . $params['order_by'];
     }
+
 
     // Handle Paging
     $sqlToReplace = "SELECT id, name, price, rating, img_url";
@@ -67,6 +81,8 @@ function getListings(
 
     $res = mysqli_query($conn, $sql);
     $res_str = mysqli_fetch_all($res, MYSQLI_ASSOC);
+
+    // echo $sql;
 
     // echo 'full sql: ' . $sql;
     // echo '<br>';

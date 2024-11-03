@@ -28,5 +28,6 @@ if (isset($_GET['listing_id']) && isset($_GET['quantity'])) {
     // print_r($cart_id);
     mysqli_close($conn);
 }
-header('location: /shop/item/?id=' . $listing_id);
+// header('location: /shop/item/?id=' . $listing_id);
+header('location: /shop');
 exit();

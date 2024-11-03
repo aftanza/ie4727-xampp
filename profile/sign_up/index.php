@@ -165,61 +165,56 @@ function encapsulateWithSingleQuotes($str)
 
 <body class="sign-up-page">
     <?php include('../../global/header/index.php'); ?>
-    <div class="sign-up-content">
+    <main class="sign-up-content">
         <div class="container">
             <h1>Sign Up</h1>
-            <form class="Card" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-                <!-- TODO: Fix this to use for loop -->
-                <label>Name:</label>
+            <form class="Card sign-up-form" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <?php if ($error_name): ?>
+                        <p class='error'><?php echo $error_name; ?></p>
+                    <?php endif; ?>
+                    <input type="text" class="Input Input--variant" name="name" id="name" placeholder="Enter your name" value="<?php echo htmlspecialchars($name); ?>">
+                </div>
 
-                <?php if ($error_name): ?>
-                    <?php echo "<p class='error'>" . $error_name . "</p>" ?>
-                <?php endif; ?>
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <?php if ($error_email): ?>
+                        <p class='error'><?php echo $error_email; ?></p>
+                    <?php endif; ?>
+                    <input type="email" class="Input Input--variant" name="email" id="email" placeholder="Enter your email" value="<?php echo htmlspecialchars($email); ?>">
+                </div>
 
-                <?php if ($name): ?>
-                    <?php echo "<input type='text' name='name' id='name' value=" . $name . ">" ?>
-                <?php else: ?>
-                    <input type="text" name="name" id="name" placeholder="Input name here">
-                <?php endif; ?>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <?php if ($error_username): ?>
+                        <p class='error'><?php echo $error_username; ?></p>
+                    <?php endif; ?>
+                    <input type="text" class="Input Input--variant" name="username" id="username" placeholder="Choose a username" value="<?php echo htmlspecialchars($username); ?>">
+                </div>
 
-                <label>E-mail:</label>
-                <?php if ($error_email): ?>
-                    <?php echo "<p class='error'>" . $error_email . "</p>" ?>
-                <?php endif; ?>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <?php if ($error_password): ?>
+                        <p class='error'><?php echo $error_password; ?></p>
+                    <?php endif; ?>
+                    <input type="password" class="Input Input--variant" name="password" id="password" placeholder="Create a password">
+                </div>
 
-                <?php if ($email): ?>
-                    <?php echo "<input type='email' name='email' id='email' value=" . $email . ">" ?>
-                <?php else: ?>
-                    <input type="email" name="email" id="email" placeholder="Input email here">
-                <?php endif; ?>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password:</label>
+                    <?php if ($error_confirm_password): ?>
+                        <p class='error'><?php echo $error_confirm_password; ?></p>
+                    <?php endif; ?>
+                    <input type="password" class="Input Input--variant" name="confirm-password" id="confirm-password" placeholder="Confirm your password">
+                </div>
 
-                <label>Username:</label>
-                <?php if ($error_username): ?>
-                    <?php echo "<p class='error'>" . $error_username . "</p>" ?>
-                <?php endif; ?>
-                <?php if ($username): ?>
-                    <?php echo "<input type='username' name='username' id='username' value=" . $username . ">" ?>
-                <?php else: ?>
-                    <input type="username" name="username" id="username" placeholder="Input username here">
-                <?php endif; ?>
-
-                <label>Password:</label>
-                <?php if ($error_password): ?>
-                    <?php echo "<p class='error'>" . $error_password . "</p>" ?>
-                <?php endif; ?>
-                <input type="password" name="password" id="password" placeholder="Input password here">
-
-                <label>Confirm Password:</label>
-                <?php if ($error_confirm_password): ?>
-                    <?php echo "<p class='error'>" . $error_confirm_password . "</p>" ?>
-                <?php endif; ?>
-                <input type="password" id="confirm-password" name="confirm-password" placeholder="Input password again here">
-
-                <button onclick="handleSubmit()" name="submit" value="submit">Submit</button>
+                <div class="sign-up-button-container">
+                    <button class="Button Button--secondary submit-btn" name="submit" value="submit">Sign Up</button>
+                </div>
             </form>
         </div>
-
-    </div>
+    </main>
     <?php include('../../global/footer/index.php'); ?>
 </body>
 

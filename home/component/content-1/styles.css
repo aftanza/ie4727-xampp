@@ -1,4 +1,28 @@
 .content-1 {
-    background-color: aquamarine;
-    height: 400px;
+    /* background-color: aquamarine; */
+    height: 800px;
+    position: relative;
+}
+
+.content-1-text {
+    /* background-color: #006400; */
+    background-color: var(--neon-green);
+
+    padding: 32px;
+    position: absolute;
+    top: 65%;
+    right: 10%;
+    margin-left: 40px;
+}
+
+.content-1-text > h1 {
+    /* font-weight: 900; */
+    color: black;
+}
+
+.content-1 > img {
+    width: 100%;
+    height: 800px;
+    object-fit: cover;
+    transform: scaleX(-1);
 }

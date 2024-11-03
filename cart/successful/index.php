@@ -12,9 +12,9 @@
     <?php include('global/font/font.php'); ?>
 </head>
 
-<body class="about">
+<body class="successful-transaction">
     <?php include('global/header/index.php'); ?>
-    Successfull transaction
+    <p>Successfull transaction</p>
     <?php include('global/footer/index.php'); ?>
 </body>
 
