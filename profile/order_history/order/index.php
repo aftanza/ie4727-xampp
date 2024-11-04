@@ -1,4 +1,6 @@
 <?php require('global/php/db.php'); ?>
+<?php require('global/persist/account_persist.php'); ?>
+
 
 <!DOCTYPE html>
 
@@ -14,7 +16,6 @@
     <?php include('global/font/font.php'); ?>
 </head>
 <?php
-session_start();
 $total = 0;
 
 if (isset($_SESSION['user_id'])) {

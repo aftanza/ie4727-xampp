@@ -1,8 +1,8 @@
 <?php
-// $recipient = $_POST['recipient_email'];
-// $order_status = $_POST['order_status'];
-$recipient = 'dummy@gmai.com';
-$order_status = 'sent';
+$recipient = $_POST['customer_email'];
+$order_status = $_POST['order_status'];
+// $recipient = 'dummy@gmai.com';
+// $order_status = 'sent';
 
 $to = $recipient;
 $subject = "Update on Your Order Status";
@@ -17,8 +17,10 @@ $txt .= "IE4727";
 $headers = "From: ie47727proj@example.com" . "\r\n" .
     "CC: support@example.com";
 
-if (mail($to, $subject, $txt, $headers)) {
-    echo 'Email sent successfully!';
-} else {
-    echo 'Failed to send email.';
-}
+// if (mail($to, $subject, $txt, $headers)) {
+//     echo 'Email sent successfully!';
+// } else {
+//     echo 'Failed to send email.';
+// }
+
+mail($to, $subject, $txt, $headers);

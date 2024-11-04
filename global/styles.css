@@ -13,8 +13,9 @@
 
     --accent-color: #e74c3c;
     --background-color: #0a0a0a;
-    --text-color: #d1d5db;
+    --text-color: #e4e6eb;
     --subtext-color: #707786;
+    --subtext-color-variant: #979ca5;
     --hover-color: #2980b9;
     --neon-green: #00ff9f;
     --neon-green-muted: #74ff037c;
@@ -193,6 +194,10 @@ body {
 
 .Card--shop > * {
     margin: 0;
+}
+
+.Card--no-outline {
+    outline: none;
 }
 
 .Card--shop--content {

@@ -3,11 +3,12 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-echo 'persist implemented';
-echo '<br>';
-echo 'username: ' . $_SESSION['username'];
-echo '<br>';
-echo 'id: ' . $_SESSION['user_id'];
+// echo 'persist implemented';
+// echo '<br>';
+// echo 'username: ' . $_SESSION['username'];
+// echo '<br>';
+// echo 'id: ' . $_SESSION['user_id'];
+
 // echo '<br>';
 // echo $_COOKIE['username'];
 // echo '<br>';

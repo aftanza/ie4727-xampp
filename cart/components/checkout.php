@@ -43,7 +43,10 @@ if (isset($_POST["cart_id"]) && isset($_POST["user_id"])) {
     $res = mysqli_query($conn, $sql);
 
     mysqli_close($conn);
+    header('location: ../successful?placed_order_id=' . $placed_order_id);
+    exit();
 } else {
     echo "Error on checkout: Invalid parameters";
+    header('location: ../successful');
+    exit();
 }
-header('location: ../successful');

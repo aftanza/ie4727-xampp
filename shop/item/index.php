@@ -81,8 +81,7 @@ if (isset($_GET['id'])) {
 
             <div class="item-text-container">
                 <h1 class="item-text-name"><?php echo $product_name ?></h1>
-                <p class="item-text-description">Etiam eros dolor, rhoncus porttitor iaculis et, laoreet ut ex. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam malesuada risus eget consequat tempor. Aenean gravida quam vitae mauris lacinia, id porta massa ultrices. Cras mollis ex vel diam pharetra, quis facilisis velit mollis. Pellentesque ut tellus finibus, laoreet nibh in, ultrices ligula. Suspendisse a leo tellus. Proin eleifend, lectus quis ultrices semper, magna nisl iaculis eros, quis tempus quam metus quis ligula. Fusce malesuada metus ut erat luctus, eget efficitur purus dignissim. Nullam mi nisi, tincidunt sed nibh in, feugiat tempus mi. Nunc pharetra sagittis est, et convallis lectus ullamcorper vitae. Sed venenatis felis tellus, vitae accumsan est fringilla a. Donec sit amet leo sem. Phasellus luctus urna justo, eget ultrices nisi rutrum eget. Donec iaculis tempus purus vitae fermentum. Sed sodales leo non metus scelerisque, non pretium erat consectetur.
-                </p>
+                <p class="item-text-description"><?php echo $product_desc ?></p>
                 <!-- <h3 class="item-text-description">Description: <?php echo $product_desc ?></h3> -->
                 <p class="item-text-price">Price: <span class="color-green">$<?php echo $product_price ?></span></p>
                 <p class="item-text-rating">Rating: <?php echo convertToStars($product_rating) ?></p>

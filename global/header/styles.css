@@ -91,7 +91,7 @@
 
 .shop-container .dropdown {
     /* background-color: white; */
-    background-color: #2a3244;
+    background-color: var(--tertiary-color);
     animation: fadeIn 0.3s ease-out;
 
     display: none;
@@ -163,7 +163,7 @@
 .button-shop-dropdown {
     background-color: transparent;
     /* color: var(--text-color); */
-    color: white;
+    color: var(--text-color);
     /* color: var(--darkgrey); */
     padding: 8px 12px;
     margin: 2px 0;

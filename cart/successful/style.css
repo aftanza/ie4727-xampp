@@ -1,0 +1,86 @@
+.successful-transaction-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 480px;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+.icon-container > img {
+    width: 220px;
+    height: auto;
+}
+
+.successful-transaction-content .green {
+    color: var(--neon-green);
+}
+.successful-transaction-content .white {
+    color: white;
+}
+.successful-transaction-content .subtext {
+    color: var(--subtext-color-variant);
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+    text-align: center;
+}
+
+.card-container {
+    width: 100%;
+}
+
+.card-container .success-card {
+    padding: 2rem;
+    margin: 1rem 0;
+}
+
+.Card--shop-header {
+    text-align: center;
+}
+
+.row-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 0;
+}
+
+hr.solid {
+    border: 1px solid var(--subtext-color);
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    gap: 1rem;
+}
+
+.button-container > button {
+    width: 100%;
+    position: relative;
+    height: 3rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+
+    padding: 0.4rem;
+    /* line-height: 0; */
+}
+
+.button-container > button > img {
+    height: 24px;
+    width: auto;
+}

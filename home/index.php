@@ -21,7 +21,6 @@
 </head>
 
 <body class="home">
-    <button onclick="handleOnClick()">asdasdasdas</button>
     <?php include('global/header/index.php'); ?> <!-- <h1>DEALS PLACEHOLDER</h1> -->
 
     <div class="Content home-content">
@@ -33,11 +32,5 @@
     </div>
     <?php include('global/footer/index.php'); ?>
 </body>
-
-<script>
-    function handleOnClick() {
-        window.location.href = '/_mail/mail.php';
-    }
-</script>
 
 </html>
