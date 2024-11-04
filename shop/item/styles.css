@@ -50,6 +50,12 @@
     width: 400px;
 }
 
+.item-image > img {
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+}
+
 /* Text */
 
 .item-text-container {
