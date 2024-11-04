@@ -7,8 +7,9 @@
 .content-1-text {
     /* background-color: #006400; */
     background-color: var(--neon-green);
+    /* position: relative; */
 
-    padding: 32px;
+    padding: 32px 80px;
     position: absolute;
     top: 65%;
     right: 10%;
@@ -17,7 +18,9 @@
 
 .content-1-text > h1 {
     /* font-weight: 900; */
+    font-family: "Poppins", sans-serif;
     color: black;
+    margin-bottom: 0.4rem;
 }
 
 .content-1 > img {
@@ -25,4 +28,8 @@
     height: 800px;
     object-fit: cover;
     transform: scaleX(-1);
+}
+
+.content-1-text .subtext {
+    color: #5f5d5dec;
 }

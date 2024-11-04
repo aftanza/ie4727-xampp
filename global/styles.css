@@ -175,9 +175,8 @@ body {
     color: var(--subtext-color);
 }
 
-.Card > * {
+.Card--margin > * {
     margin: 20px;
-    /* display: block; */
 }
 
 .Card--shop {

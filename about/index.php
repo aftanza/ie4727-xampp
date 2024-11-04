@@ -45,36 +45,38 @@
                         <h2>Quality Products</h2>
                     </div>
                     <div class="Card--Content">
-                        <p>aisuhdas</p>
+                        <p>Top-notch CPUs, GPUs, and peripherals built for performance and reliability.</p>
                     </div>
                 </div>
 
                 <div class="Card card-offer">
                     <div class="Card--Header">
-                        <h2>Quality Products</h2>
+                        <h2>Expert Support</h2>
                     </div>
                     <div class="Card--Content">
-                        <p>aisuhdas</p>
+                        <p>Our tech experts are ready to assist with any questions or needs.</p>
                     </div>
                 </div>
 
                 <div class="Card card-offer">
                     <div class="Card--Header">
-                        <h2>Quality Products</h2>
+                        <h2>Fast & Secure Shipping</h2>
                     </div>
                     <div class="Card--Content">
-                        <p>aisuhdas</p>
+                        <p>Quick, reliable delivery to get your tech in your hands fast.</p>
                     </div>
                 </div>
 
                 <div class="Card card-offer">
                     <div class="Card--Header">
-                        <h2>Quality Products</h2>
+                        <h2>Exclusive Deals</h2>
                     </div>
                     <div class="Card--Content">
-                        <p>aisuhdas</p>
+                        <p>Special discounts and bundles to upgrade your setup affordably.</p>
                     </div>
                 </div>
+
+
 
 
             </div>

@@ -10,19 +10,64 @@
 .card-deals-container {
     display: flex;
     justify-content: center;
+    /* flex-direction: column; */
 }
 
 .card-deals {
     /* background-color: seagreen; */
-    width: 100%;
+    /* width: 100%; */
+
+    height: 500px;
+
     /* height: 620px; */
     /* border-radius: 15px; */
     /* text-align: center; */
     /* color: var(--neon-green); */
+
+    padding: 0;
+    background-color: var(--tertiary-color);
+    cursor: pointer;
+
+    position: relative;
 }
 
 .card-deals img {
     width: 100%;
-    height: auto;
-    /* object-fit: cover; */
+    /* max-width: 100%; */
+    height: 500px;
+    /* max-height: 400px; */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    border-radius: 8px;
+}
+
+.overlay-text {
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+}
+
+.card-deals:hover .overlay {
+    opacity: 1;
+    /* outline: var(--neon-green); */
+}
+
+.card-deals:hover {
+    outline: solid 1px var(--neon-green);
 }

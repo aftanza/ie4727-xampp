@@ -34,7 +34,7 @@ function checkIsLoggedIn()
     <?php include('global/header/index.php'); ?>
     <?php $isLoggedIn = checkIsLoggedIn(); ?>
     <div class="profile-content Content">
-        <div class="button-card Card">
+        <div class="button-card Card Card--margin">
             <?php if ($isLoggedIn === false): ?>
                 <div class="Button Button--secondary" onclick="handleButton('signup')">Sign-up</div>
                 <div class="Button Button--secondary" onclick="handleButton('login')">Login</div>
