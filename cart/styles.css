@@ -32,3 +32,99 @@
 .cart-item-checkout {
     grid-column: 6;
 }
+
+.Modal {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+}
+
+.Modal.active {
+    display: flex;
+    animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.Modal--container {
+    position: relative;
+    background-color: #0a0a0a;
+    padding: 24px 20px 20px 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+
+    outline: 1px solid var(--neon-green);
+}
+
+.Modal--container h2 {
+    color: var(--neon-green);
+}
+
+.Modal--content {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 1.6rem 0;
+    row-gap: 1rem;
+    column-gap: 1.4rem;
+
+    box-sizing: border-box;
+}
+
+.Modal--content > div {
+    display: flex;
+    flex-direction: column;
+}
+.Modal--content > div > label {
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 0.3rem;
+    color: var(--subtext-color-variant);
+}
+.Modal--content > div > input {
+    /* height: 24px; */
+    padding: 0.3rem 0.5rem;
+    width: 100%;
+
+    background-color: var(--tertiary-color);
+    box-shadow: none;
+}
+
+input[type="month"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Inverts colors to make the icon white */
+    cursor: pointer;
+}
+input[type="month"]::-moz-calendar-picker-indicator {
+    filter: invert(1); /* For Firefox (if applicable) */
+    cursor: pointer;
+}
+
+.Modal--footer > button {
+    width: 100%;
+}
+.cross {
+    position: absolute;
+
+    right: 15px;
+    top: 5px;
+    font-size: 24px;
+    cursor: pointer;
+}

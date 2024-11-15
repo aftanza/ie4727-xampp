@@ -72,7 +72,6 @@ $regex_password = [
     // 
 ];
 
-// TODO: fix this to use for loop
 if (isset($_POST['submit'])) {
     if (empty($_POST['name'])) {
         $error_name = 'Name is required';

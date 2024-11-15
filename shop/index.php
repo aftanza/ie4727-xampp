@@ -156,10 +156,6 @@ require_once 'global/php/convert_to_stars.php';
             </div>
             <div class="shop-paging">
                 <div class="paging-container">
-
-                    <!-- <div class="shop-page-button" onclick="handlePrevNext('prev')">
-                        <img src=" ../img/icons/arrow-left.svg" class="shop-page-prevnext-icon" alt="">
-                    </div> -->
                     <div class="shop-page-button" style="visibility: <?php echo ($paging_currentPage - 1 > 0) ? 'visible' : 'hidden' ?> ;" onclick="handlePaging('prev')">
                         <img src=" /img/icons/arrow-left.svg" class="icon shop-page-prevnext-icon" alt="">
                     </div>
@@ -173,10 +169,6 @@ require_once 'global/php/convert_to_stars.php';
                     <div class="shop-page-button" style="visibility: <?php echo ($paging_lastPage - $paging_currentPage >= 1) ? 'visible' : 'hidden' ?> ;" onclick="handlePaging('next')">
                         <img src=" /img/icons/arrow-right.svg" class="icon shop-page-prevnext-icon" alt="">
                     </div>
-                    <!-- <div class="shop-page-button" onclick="handlePrevNext('next')">
-                        <img src=" ../img/icons/arrow-right.svg" class="shop-page-prevnext-icon" alt="">
-                    </div> -->
-
                 </div>
             </div>
         </div>

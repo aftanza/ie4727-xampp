@@ -3,18 +3,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// echo 'persist implemented';
-// echo '<br>';
-// echo 'username: ' . $_SESSION['username'];
-// echo '<br>';
-// echo 'id: ' . $_SESSION['user_id'];
-
-// echo '<br>';
-// echo $_COOKIE['username'];
-// echo '<br>';
-// echo $_SESSION['log_out'];
-// echo '<br>';
-
 // Check logout first
 if (isset($_SESSION['log_out']) && $_SESSION['log_out'] == 'true') {
     // session_unset();
@@ -25,8 +13,6 @@ if (isset($_SESSION['log_out']) && $_SESSION['log_out'] == 'true') {
     setcookie("user_id", "", time() - 3600, '/');
     // session_regenerate_id(true);
 
-    // Need to add this header return because for some reason this escapes the if else and bleeds into the else, which reinstates the session and therefore the cookie
-    // TODO: Learn why
     header('Location: .');
     exit();
 } else {

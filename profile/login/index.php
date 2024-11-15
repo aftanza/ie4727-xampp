@@ -24,7 +24,6 @@ $error_password = '';
 // $name = '';
 $username = '';
 
-// TODO: fix this to use for loop
 if (isset($_POST['submit'])) {
 
     if (empty($_POST['username'])) {

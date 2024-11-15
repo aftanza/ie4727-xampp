@@ -82,33 +82,9 @@ function getListings(
     $res = mysqli_query($conn, $sql);
     $res_str = mysqli_fetch_all($res, MYSQLI_ASSOC);
 
-    // echo $sql;
-
-    // echo 'full sql: ' . $sql;
-    // echo '<br>';
-
-    // echo 'page offset: ' . $paging_page_offset;
-    // echo '<br>';
-
-    // echo 'sql result: ' . print_r($res_str);
-    // echo '<br>';
-    // echo '<br>';
-
-    // echo 'The cannot modify header thing, to remove just remove the pruint_r above';
-    // echo '<br>';
-
     mysqli_close($conn);
 
     return $res_str;
-
-    // if ($res && mysqli_num_rows($res) > 0) {
-    //     return mysqli_fetch_all($res, MYSQLI_ASSOC);
-    // } else {
-    //     echo 'No results found.';
-    //     return [];  // Return an empty array if no results are found
-    // }
-
-    // print_r($res_string);
 };
 
 function isThereWhereInString($str)

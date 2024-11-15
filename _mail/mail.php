@@ -1,6 +1,7 @@
 <?php
 $recipient = $_POST['customer_email'];
 $order_status = $_POST['order_status'];
+$order_id = $_POST['order_id'];
 // $recipient = 'dummy@gmai.com';
 // $order_status = 'sent';
 
@@ -8,7 +9,7 @@ $to = $recipient;
 $subject = "Update on Your Order Status";
 
 $txt = "Dear Customer,\n\n";
-$txt .= "We are writing to update you on the status of your order. ";
+$txt .= "We are writing to update you on the status of your order of id: $order_id . ";
 $txt .= "Your order is currently: $order_status.\n\n";
 $txt .= "Thank you for shopping with us!\n\n";
 $txt .= "Best Regards,\n";

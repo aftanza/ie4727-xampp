@@ -35,17 +35,6 @@ if (isset($_SESSION['user_id'])) {
 } else {
     header('Location: /profile');
 }
-// $placed_orders_id = $res_str[0]['id'];
-
-
-
-// $sql = 'SELECT ci.id AS cart_item_id, ci.quantity, l.id AS listing_id, l.name, l.price, l.img_url FROM (placed_cart_items AS pci JOIN listings AS l ON l.id = pci.listing_id) WHERE pci.placed_order_id = ' . $placed_orders_id . ' ORDER BY pci.created_at ASC';
-// $sql = 'SELECT ci.id AS cart_item_id, ci.quantity, l.id AS listing_id, l.name, l.price, l.img_url FROM (placed_cart_items AS pci JOIN listings AS l ON l.id = pci.listing_id) WHERE pci.placed_order_id = ' . $placed_orders_id . ' ORDER BY pci.created_at ASC';
-
-// $res = mysqli_query($conn, $sql);
-// $res_str = mysqli_fetch_all($res, MYSQLI_ASSOC);
-
-// print_r($placed_orders);
 
 mysqli_close($conn);
 

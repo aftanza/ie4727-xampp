@@ -1,5 +1,6 @@
 <?php require('global/php/db.php'); ?>
 <?php require_once 'global/php/convert_to_stars.php'; ?>
+<?php require('global/persist/account_persist.php'); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,17 +16,12 @@
 </head>
 
 <?php
-session_start();
 $isLoggedIn = 'false';
 $username = '';
 if (isset($_SESSION['username'])) {
     $isLoggedIn = 'true';
     $username = $_SESSION['username'];
 }
-// echo 'isLoggedIn: ' . $isLoggedIn;
-// echo '<br>';
-// echo 'username: ' . $username;
-// echo '<br>';
 
 ?>
 

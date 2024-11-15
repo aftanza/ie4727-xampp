@@ -135,15 +135,69 @@ $total = number_format($total, 2);
         </div>
         <div class="Card--grid cart-item">
             <div class="cart-item-checkout">
-                <button class="Button Button--secondary" onclick="handleCheckout('<?php echo $cart_id ?>', '<?php echo $user_id ?>', '<?php echo $isCartEmpty ?>')">Checkout</button>
+                <button class="Button Button--secondary" onclick="handleShowModal()">Checkout</button>
             </div>
         </div>
     </div>
     <?php include('../global/footer/index.php'); ?>
+
+
+    <div id="checkout-modal" class="Modal">
+        <div class="Modal--container">
+            <div class="Modal--close">
+                <span class="cross" onclick="handleCloseModal()">&times;</span>
+            </div>
+
+            <div class="Modal--header">
+                <h2>Enter Payment Details</h2>
+            </div>
+
+            <form action="" class="Modal--content">
+                <div class="input-label" style="grid-column: 1 / span 2;">
+                    <label for="card-number">Card Number</label>
+                    <input id="card-number" class="Input Input--variant Modal--input" placeholder="1234 5678 9012 3456">
+                </div>
+
+                <div class="input-label">
+                    <label for="expiry-date">Expiry Date (MM/YY)</label>
+                    <input id="expiry-date" type="month" class="Input Input--variant Modal--input" placeholder="MM/YY">
+                </div>
+
+                <div class="input-label">
+                    <label for="cvv">CVV</label>
+                    <input id="cvv" placeholder="123" class="Input Input--variant Modal--input">
+                </div>
+
+                <div class="input-label" style="grid-column: 1 / span 2;">
+                    <label for="cardholder-name">Cardholder Name</label>
+                    <input id="cardholder-name" placeholder="John Doe" class="Input Input--variant Modal--input">
+                </div>
+
+
+            </form>
+
+            <div class="Modal--footer">
+                <button class="Button Button--secondary" onclick="handleConfirmCheckout('<?php echo $cart_id ?>', '<?php echo $user_id ?>')">Confirm</button>
+                <!-- <button class="Button Button--secondary" onclick="handleCloseModal()">Cancel</button> -->
+            </div>
+            <!-- <p>Are you sure you want to proceed with the checkout?</p> -->
+
+        </div>
+    </div>
 </body>
 
 <script>
-    function handleCheckout(cartId, userId, isCartEmpty) {
+    function handleShowModal() {
+        const modal = document.getElementById('checkout-modal');
+        modal.classList.add('active');
+    }
+
+    function handleCloseModal() {
+        const modal = document.getElementById('checkout-modal');
+        modal.classList.remove('active');
+    }
+
+    function handleConfirmCheckout(cartId, userId, isCartEmpty) {
         if (!isCartEmpty) {
             let form = document.createElement('form');
             form.method = 'POST';

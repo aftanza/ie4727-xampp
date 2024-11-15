@@ -12,22 +12,11 @@
                     <li><a href="/shop?category%5B%5D=prebuilt">Pre-Built PC</a></li>
                 </ul>
             </div>
-            <!-- <div class="footer-column">
-                <h3>Support</h3>
-                <ul>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><a href="/shipping">Shipping</a></li>
-                    <li><a href="/returns">Returns</a></li>
-                    <li><a href="/warranty">Warranty</a></li>
-                </ul>
-            </div> -->
+
             <div class="footer-column">
                 <h3>Company</h3>
                 <ul>
                     <li><a href="/about">About Us</a></li>
-                    <!-- <li><a href="/careers">Careers</a></li>
-                    <li><a href="/blog">Blog</a></li>
-                    <li><a href="/privacy">Privacy Policy</a></li> -->
                 </ul>
             </div>
         </div>
