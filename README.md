@@ -24,6 +24,12 @@
     - Select the `Import` tab.
     - Upload the `xampp_db.sql` file and execute the import.
 
+### 3. HTDocs Setup
+
+1. Locate the project folder in your local machine.
+2. Copy the entire project folder into the `htdocs` directory inside your XAMPP installation directory (usually located at `C:\xampp\htdocs` on Windows or `/opt/lampp/htdocs` on Linux/Mac).
+3. Verify the project files are in place by navigating to `http://localhost:3000` in your browser.
+
 ## Additional Notes
 
 -   The web application should run on port `3000`
