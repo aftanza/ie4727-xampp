@@ -17,9 +17,14 @@
 
 1. Locate the SQL database file (`xampp_db.sql`) in the `__db` folder.
 2. Open the XAMPP Control Panel and start the `MySQL` service.
-3. Open `phpMyAdmin` in your browser by navigating to `http://localhost/phpmyadmin`.
+3. Open `phpMyAdmin` in your browser by navigating to `http://localhost:3000/phpmyadmin`.
 4. Create a new database with the same name (`xampp_db`).
 5. Import the `xampp_db.sql` file into the newly created database:
     - Click on the database name in phpMyAdmin.
     - Select the `Import` tab.
     - Upload the `xampp_db.sql` file and execute the import.
+
+## Additional Notes
+
+-   The web application should run on port `3000`
+-   The database should run on port `3306`
